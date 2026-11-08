@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 9. Residuos sanitarios</title>
+<style>
+:root{
+  --primary:#177d74;
+  --primary-dark:#105b55;
+  --primary-light:#e5f3f0;
+  --text:#29383d;
+  --muted:#687a7e;
+  --bg:#f2f6f5;
+  --white:#fff;
+  --green:#20834b;
+  --green-bg:#e6f5e9;
+  --red:#c43f46;
+  --red-bg:#fff0f0;
+  --border:#dce6e4;
+  --shadow:0 8px 28px rgba(31,67,68,.09);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.55;
+}
+button,select{font:inherit}
+button{cursor:pointer}
+.app{max-width:1100px;margin:0 auto;padding:22px 18px 42px}
+header{text-align:center;padding:24px 12px 22px}
+.eyebrow{
+  display:inline-block;
+  background:var(--primary-light);
+  color:var(--primary-dark);
+  font-size:.77rem;
+  font-weight:800;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  padding:7px 13px;
+  border-radius:30px;
+}
+h1{
+  color:var(--primary-dark);
+  font-size:clamp(1.8rem,5vw,2.8rem);
+  line-height:1.15;
+  margin:15px 0 10px;
+}
+.subtitle{max-width:790px;margin:0 auto;color:var(--muted)}
+.credit{
+  display:inline-block;
+  margin-top:18px;
+  padding:10px 16px;
+  border:1px solid #b9dcd5;
+  border-radius:9px;
+  color:var(--primary-dark);
+  background:#f8fffd;
+  font-weight:750;
+}
+.panel{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:clamp(18px,4vw,30px);
+  box-shadow:var(--shadow);
+}
+.section-title{margin:0 0 8px;color:var(--primary-dark);font-size:1.35rem}
+.section-intro{margin:0 0 20px;color:var(--muted)}
+.topic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.topic-card{
+  border:2px solid var(--border);
+  border-radius:13px;
+  background:#fff;
+  padding:16px;
+  text-align:left;
+  color:var(--text);
+  transition:.18s ease;
+  min-height:105px;
+}
+.topic-card:hover{border-color:var(--primary);transform:translateY(-2px)}
+.topic-card.selected{border-color:var(--primary);background:var(--primary-light)}
+.topic-card strong{display:block;color:var(--primary-dark);font-size:.98rem;margin-bottom:5px}
+.topic-card span{display:block;color:var(--muted);font-size:.87rem}
+.topic-number{
+  display:inline-flex!important;
+  width:27px;height:27px;
+  justify-content:center;align-items:center;
+  border-radius:50%;
+  background:#d6eee9;
+  color:var(--primary-dark)!important;
+  font-weight:800;
+  margin-bottom:8px;
+}
+.controls{
+  display:flex;
+  gap:15px;
+  align-items:end;
+  flex-wrap:wrap;
+  margin-top:22px;
+  padding-top:20px;
+  border-top:1px solid var(--border);
+}
+.control-group{flex:1;min-width:210px}
+label{display:block;font-weight:750;font-size:.92rem;margin-bottom:7px}
+select{
+  width:100%;
+  padding:12px 13px;
+  border:1px solid #cbd9d8;
+  border-radius:10px;
+  background:#fff;
+  color:var(--text);
+}
+.btn{
+  border:0;
+  border-radius:10px;
+  padding:12px 20px;
+  font-weight:800;
+  transition:.18s ease;
+}
+.btn:hover{filter:brightness(.95);transform:translateY(-1px)}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-secondary{background:#eaf1f0;color:var(--primary-dark);border:1px solid #d1e1de}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.start-btn{min-width:195px}
+.info-line{margin:14px 0 0;color:var(--muted);font-size:.88rem}
+.hidden{display:none!important}
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:15px;
+}
+.topbar .btn{padding:9px 14px;font-size:.88rem}
+.quiz-meta{display:flex;gap:8px;flex-wrap:wrap}
+.pill{
+  background:var(--primary-light);
+  color:var(--primary-dark);
+  border-radius:30px;
+  padding:7px 12px;
+  font-weight:750;
+  font-size:.84rem;
+}
+.progress-wrap{margin:15px 0 23px}
+.progress-label{
+  display:flex;
+  justify-content:space-between;
+  color:var(--muted);
+  font-size:.86rem;
+  margin-bottom:7px;
+}
+.progress{height:9px;border-radius:20px;background:#e3ebea;overflow:hidden}
+.progress-fill{height:100%;background:var(--primary);width:0;transition:width .25s}
+.question-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:17px;
+  box-shadow:var(--shadow);
+  padding:clamp(20px,4vw,32px);
+}
+.question-heading{
+  font-size:1.2rem;
+  line-height:1.45;
+  margin:0 0 23px;
+  color:#203e40;
+}
+.question-number{color:var(--primary);font-weight:850}
+.options{display:grid;gap:11px}
+.option{
+  width:100%;
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  text-align:left;
+  padding:14px;
+  border-radius:11px;
+  background:#fff;
+  border:1.5px solid var(--border);
+  color:var(--text);
+  line-height:1.45;
+}
+.option:hover:not(:disabled){border-color:var(--primary);background:#f6fbfa}
+.option.selected{border-color:var(--primary);background:var(--primary-light)}
+.option:disabled{cursor:default;opacity:1}
+.option.correct{border-color:var(--green);background:var(--green-bg)}
+.option.incorrect{border-color:var(--red);background:var(--red-bg)}
+.letter{
+  flex:0 0 29px;
+  height:29px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  background:#edf2f2;
+  font-weight:850;
+  color:#496064;
+  font-size:.88rem;
+}
+.option.correct .letter{background:var(--green);color:#fff}
+.option.incorrect .letter{background:var(--red);color:#fff}
+.feedback{
+  margin-top:20px;
+  padding:17px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  display:none;
+}
+.feedback.show{display:block}
+.feedback.good{background:var(--green-bg);border-color:#b7e0c3}
+.feedback.bad{background:var(--red-bg);border-color:#f0c3c5}
+.feedback strong{display:block;margin-bottom:6px}
+.feedback.good strong{color:var(--green)}
+.feedback.bad strong{color:var(--red)}
+.feedback p{margin:0}
+.quiz-actions{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
+.quiz-actions .btn{min-width:150px}
+.result{text-align:center;padding:34px 20px}
+.result-icon{font-size:3.5rem}
+.result h2{color:var(--primary-dark);font-size:2rem;margin:8px 0}
+.score-big{font-size:3.2rem;font-weight:900;color:var(--primary);margin:14px 0}
+.result-details{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  max-width:600px;
+  margin:23px auto;
+}
+.stat{padding:14px 8px;background:#f3f8f7;border-radius:11px}
+.stat strong{display:block;font-size:1.45rem;color:var(--primary-dark)}
+.stat span{font-size:.84rem;color:var(--muted)}
+.result-message{max-width:650px;margin:0 auto 23px;color:var(--muted)}
+.footer-note{text-align:center;color:var(--muted);font-size:.8rem;margin-top:25px}
+@media(max-width:650px){
+  .app{padding:10px 12px 30px}
+  header{padding-top:20px}
+  .topic-grid{grid-template-columns:1fr}
+  .topic-card{min-height:auto}
+  .controls{align-items:stretch}
+  .start-btn{width:100%}
+  .question-heading{font-size:1.08rem}
+  .quiz-actions .btn{flex:1}
+  .result-details{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<header>
+  <span class="eyebrow">Higiene del Medio Hospitalario</span>
+  <h1>Tema 9. Residuos sanitarios</h1>
+  <p class="subtitle">Cuestionario de evaluación para aprender a clasificar, segregar, manipular, almacenar, transportar y tratar los residuos generados en los centros sanitarios mediante situaciones prácticas.</p>
+  <div class="credit">Elaboración de Susana Felipe Ortiz con ayuda de la IA</div>
+</header>
+
+<main>
+  <section id="home" class="panel">
+    <h2 class="section-title">Selecciona el bloque que quieres practicar</h2>
+    <p class="section-intro">Puedes trabajar un apartado concreto o realizar un cuestionario del tema completo. Las preguntas plantean situaciones habituales en centros sanitarios y requieren aplicar los criterios de gestión de residuos.</p>
+    <div id="topics" class="topic-grid"></div>
+    <div class="controls">
+      <div class="control-group">
+        <label for="questionCount">Número de preguntas</label>
+        <select id="questionCount"></select>
+      </div>
+      <button id="startBtn" class="btn btn-primary start-btn">Comenzar cuestionario</button>
+    </div>
+    <p id="availableInfo" class="info-line" aria-live="polite"></p>
+  </section>
+
+  <section id="quiz" class="hidden">
+    <div class="topbar">
+      <button id="homeBtn" class="btn btn-secondary">← Volver al inicio</button>
+      <div class="quiz-meta">
+        <span id="topicPill" class="pill"></span>
+        <span id="scorePill" class="pill">Aciertos: 0</span>
+      </div>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span id="progressText">Pregunta 1 de 10</span>
+        <span id="progressPercent">0 %</span>
+      </div>
+      <div class="progress"><div id="progressFill" class="progress-fill"></div></div>
+    </div>
+
+    <article class="question-card">
+      <h2 id="questionText" class="question-heading"></h2>
+      <div id="options" class="options"></div>
+      <div id="feedback" class="feedback" aria-live="polite"></div>
+      <div class="quiz-actions">
+        <button id="checkBtn" class="btn btn-primary" disabled>Comprobar respuesta</button>
+        <button id="nextBtn" class="btn btn-secondary hidden">Siguiente pregunta →</button>
+      </div>
+    </article>
+  </section>
+
+  <section id="results" class="panel hidden">
+    <div class="result">
+      <div class="result-icon">🏁</div>
+      <h2>¡Cuestionario finalizado!</h2>
+      <p id="resultTopic" class="subtitle"></p>
+      <div id="finalScore" class="score-big">0 %</div>
+      <div class="result-details">
+        <div class="stat"><strong id="correctCount">0</strong><span>Respuestas correctas</span></div>
+        <div class="stat"><strong id="wrongCount">0</strong><span>Respuestas incorrectas</span></div>
+        <div class="stat"><strong id="totalCount">0</strong><span>Preguntas realizadas</span></div>
+      </div>
+      <p id="resultMessage" class="result-message"></p>
+      <button id="resultHomeBtn" class="btn btn-primary">Volver al menú principal</button>
+    </div>
+  </section>
+</main>
+
+<div class="footer-note">Una correcta segregación en origen protege al personal, a los pacientes, a la comunidad y al medio ambiente.</div>
+</div>
+
+<script>
+"use strict";
+
+/*
+BANCO COMPLETO: 150 PREGUNTAS.
+Distribución:
+1. Residuos sanitarios, riesgos y marco legal: 30.
+2. Tipos de residuos sanitarios y etiquetado: 30.
+3. Gestión, segregación y recogida: 30.
+4. Transporte y almacenamiento: 30.
+5. Tratamiento y eliminación: 30.
+
+Cada pregunta contiene un enunciado, cuatro opciones, un único índice
+correcto y una explicación razonada.
+Índice 0=A, 1=B, 2=C, 3=D.
+*/
+
+const topics=[
+  {id:"fundamentos",name:"1. Residuos sanitarios, riesgos y marco legal",description:"Concepto, origen, riesgos, responsabilidad sanitaria y legislación."},
+  {id:"clasificacion",name:"2. Tipos de residuos sanitarios y etiquetado",description:"Grupos I, II, III y IV; ejemplos, peligros y pictogramas."},
+  {id:"gestion",name:"3. Gestión, segregación y recogida",description:"Objetivos, responsabilidades, contenedores, bolsas y normas de manipulación."},
+  {id:"transporte",name:"4. Transporte y almacenamiento",description:"Gestión intracentro y extracentro, tiempos, almacenes y embalaje."},
+  {id:"tratamiento",name:"5. Tratamiento y eliminación de residuos",description:"Métodos mecánicos, térmicos, químicos, físicos y biológicos."}
+];
+
+const Q=(question,options,correct,explanation)=>({
+  question,options,correct,explanation
+});
+
+const bank={
+
+/* =========================================================
+   BLOQUE 1. RESIDUOS SANITARIOS, RIESGOS Y MARCO LEGAL
+   30 PREGUNTAS
+========================================================= */
+fundamentos:[
+
+Q("Un hospital considera que una bolsa de material sanitario deja de ser útil y decide desecharla. ¿En qué momento adquiere la consideración de residuo sanitario según el tema?",
+["Cuando su utilidad o su manejo clínico se dan definitivamente por concluidos.","Cuando el material ha sido utilizado por primera vez, aunque pueda reutilizarse.","Cuando el material sale de la habitación, aunque siga siendo necesario.","Cuando el personal de limpieza decide retirarlo del centro."],0,
+"El material sanitario solo se considera residuo desde el momento en que su utilidad o su manejo clínico se dan definitivamente por concluidos. No basta con que haya sido utilizado una vez."),
+
+Q("Una clínica dental genera restos de materiales, envases y productos desechados durante la asistencia. ¿Por qué se consideran residuos sanitarios?",
+["Porque se generan en un establecimiento donde se desarrollan actividades sanitarias.","Porque todos contienen necesariamente microorganismos patógenos.","Porque únicamente los hospitales pueden generar residuos sanitarios.","Porque cualquier objeto desechado en una ciudad tiene esa consideración."],0,
+"Los residuos sanitarios son los desechos generados en establecimientos o servicios donde se desarrollan actividades asistenciales, preventivas, de manipulación de productos biológicos, docentes o de investigación."),
+
+Q("Un laboratorio de investigación biomédica genera residuos durante una actividad que no atiende directamente a pacientes. ¿Pueden considerarse residuos sanitarios?",
+["Sí, porque las actividades de investigación y manipulación de productos biológicos también pueden generarlos.","No, porque solo se consideran sanitarios los residuos de hospitales.","No, porque los laboratorios únicamente generan residuos químicos.","Sí, pero solo cuando contienen sangre visible."],0,
+"El concepto del tema incluye los residuos generados en actividades asistenciales, preventivas, de manipulación de productos biológicos, docentes o de investigación. No se limita a los residuos producidos junto a una cama hospitalaria."),
+
+Q("Un centro sanitario observa que aumenta el volumen de residuos desde que utiliza más material estéril desechable. ¿Qué explicación coincide con el tema?",
+["La mayor atención a la asepsia incrementa el uso de materiales estériles de un solo uso y, por tanto, la generación de residuos.","La utilización de material desechable reduce siempre la cantidad total de residuos.","La asepsia solo incrementa los residuos líquidos, nunca los sólidos.","El aumento se debe exclusivamente al número de visitas de familiares."],0,
+"El tema identifica como causas del incremento de residuos las estancias hospitalarias más precoces y de mayor duración, la atención a la asepsia y el mayor uso de materiales estériles desechables, además de técnicas más complejas."),
+
+Q("Un hospital incorpora procedimientos diagnósticos más complejos y observa que produce residuos de características muy diferentes. ¿Qué factor del incremento de residuos está presente?",
+["La realización de técnicas más complejas, que generan residuos de especial consideración.","La reducción del número de pacientes atendidos en el centro.","La sustitución de materiales desechables por reutilizables.","La simplificación de los procedimientos asistenciales."],0,
+"Las técnicas más complejas pueden generar residuos de especial consideración. El aumento no depende solamente de la cantidad, sino también de la variabilidad y peligrosidad de los residuos."),
+
+Q("Una bolsa mal clasificada contiene material potencialmente infeccioso y llega a una zona de manipulación general. ¿Qué riesgo pone de manifiesto esta situación?",
+["La clasificación incorrecta puede aumentar la exposición de trabajadores, pacientes, visitas y comunidad.","Los residuos solo pueden afectar a la persona que los produjo.","La clasificación únicamente influye en el coste del transporte.","Los residuos mal clasificados pierden automáticamente su peligrosidad."],0,
+"Una gestión incorrecta aumenta los riesgos para las personas que entran en contacto directo con los residuos y para la comunidad en general, además de poder perjudicar al medio ambiente."),
+
+Q("Un profesional sanitario sostiene que la gestión de residuos es responsabilidad exclusiva del personal de limpieza. ¿Qué argumento contradice esta afirmación?",
+["La clasificación correcta en origen depende del personal sanitario que genera y separa los residuos.","El personal de limpieza decide siempre qué grupo corresponde a cada residuo.","La responsabilidad comienza únicamente cuando los residuos llegan al almacén final.","La clasificación solo es responsabilidad de las empresas externas."],0,
+"El tema destaca que el papel del personal sanitario es esencial, porque la adecuada clasificación en origen depende de quienes trabajan en el centro y generan los residuos. El personal de limpieza interviene en su manipulación y traslado."),
+
+Q("Una trabajadora termina un tratamiento y lleva medicamentos sobrantes a un contenedor de residuos urbanos. ¿Qué alternativa doméstica propone el tema?",
+["Entregarlos en el punto SIGRE de una farmacia.","Depositarlos en el contenedor amarillo de envases.","Verter los medicamentos líquidos por el desagüe.","Guardarlos indefinidamente hasta que se utilicen de nuevo."],0,
+"El tema explica que los medicamentos sobrantes o caducados no deben terminar en la basura ni en el desagüe. Para ello existen puntos de recogida de medicamentos en las farmacias, conocidos como puntos SIGRE."),
+
+Q("Una persona lleva medicamentos caducados y envases vacíos a una farmacia, junto con agujas y pilas. ¿Qué interpretación refleja la imagen del punto SIGRE del libro?",
+["Los medicamentos y sus envases pueden depositarse, pero agujas, termómetros, gasas, productos químicos, radiografías y pilas no deben introducirse.","Todos los objetos relacionados con la salud pueden depositarse en el punto SIGRE.","Solo se aceptan agujas y productos químicos, pero no medicamentos.","El punto SIGRE está destinado exclusivamente a residuos hospitalarios infecciosos."],0,
+"El esquema del punto SIGRE diferencia los productos que deben depositarse —medicamentos caducados, medicamentos sobrantes y envases vacíos o con restos— de los que no deben introducirse, como agujas, termómetros, gasas, productos químicos, radiografías y pilas."),
+
+Q("Una alumna afirma que existe una única ley estatal específica que regula con detalle todos los residuos sanitarios y sustituye cualquier normativa autonómica. ¿Qué matiz ofrece el tema?",
+["No existe una ley general única de residuos sanitarios y las comunidades autónomas han desarrollado normativa propia.","Toda la regulación corresponde exclusivamente a los ayuntamientos.","La normativa sanitaria es idéntica en todas las comunidades y no admite diferencias.","La Constitución impide que las comunidades autónomas regulen sus residuos."],0,
+"El tema explica que la legislación sobre residuos es amplia y que no llegó a existir una ley general de residuos sanitarios. La regulación combina legislación europea, estatal y autonómica."),
+
+Q("Una comunidad autónoma aprueba normas adicionales para organizar la gestión de residuos sanitarios en sus centros. ¿Qué fundamento constitucional permite esa actuación según el libro?",
+["La Constitución de 1978 reserva al Estado la legislación básica medioambiental, pero permite a las comunidades autónomas establecer normas adicionales.","La Constitución prohíbe a las comunidades autónomas dictar normas sobre residuos.","La legislación autonómica solo puede regular residuos domésticos.","Las comunidades autónomas pueden sustituir sin límites toda la legislación estatal."],0,
+"El tema señala que la Constitución de 1978 reserva al Estado la legislación básica sobre protección del medio ambiente y reconoce a las comunidades autónomas la posibilidad de establecer normas adicionales."),
+
+Q("Un estudiante revisa la evolución normativa y debe identificar la ley que introdujo una regulación común después de abandonar la clasificación en residuos generales y peligrosos. ¿Cuál es?",
+["La Ley 10/1998, de 21 de abril, de Residuos.","La Ley 7/2022, de 8 de abril, de Residuos y suelos contaminados para una economía circular.","La Ley 22/2011, de 28 de julio, de Residuos y Suelos Contaminados.","La Constitución de 1978."],0,
+"El tema recoge que la Ley 10/1998 introdujo orden en materia de residuos y abandonó la clasificación anterior en dos modalidades —generales y peligrosos— para establecer una regulación común de ambos."),
+
+Q("Un centro sanitario revisa los cambios legislativos y encuentra que la Ley 22/2011 sustituyó a la Ley 10/1998. ¿Qué ley sustituyó posteriormente a la de 2011 según el documento?",
+["La Ley 7/2022, de 8 de abril, de Residuos y suelos contaminados para una economía circular.","La Ley 10/1998, de 21 de abril, de Residuos.","La Ley 7/2012, de gestión de residuos sanitarios.","La Orden SND/271/2020."],0,
+"El documento presenta la secuencia Ley 10/1998, Ley 22/2011 y Ley 7/2022. Esta última se titula Ley de Residuos y suelos contaminados para una economía circular."),
+
+Q("Una alumna explica que el objetivo de la Ley 7/2022 es exclusivamente reducir el gasto de los hospitales. ¿Qué enfoque recoge realmente el tema?",
+["Proteger el medio ambiente y la salud humana y avanzar hacia una economía circular y baja en carbono.","Aumentar la incineración como único método de tratamiento.","Eliminar la recogida selectiva para simplificar la gestión.","Sustituir todas las obligaciones autonómicas por decisiones de cada hospital."],0,
+"El tema identifica como objetivos de la Ley 7/2022 proteger el medio ambiente y la salud humana y efectuar la transición a una economía circular y baja en carbono."),
+
+Q("Un centro sanitario revisa la normativa excepcional dictada durante la crisis de la COVID-19. ¿Qué finalidad tenían las órdenes ministeriales que se mencionan en el documento?",
+["Flexibilizar progresivamente las medidas de gestión de residuos durante la crisis sanitaria.","Sustituir definitivamente la clasificación de residuos por colores de bolsas.","Establecer que todos los residuos sanitarios fueran tratados como tipo IV.","Eliminar la responsabilidad de los productores de residuos."],0,
+"El tema menciona las órdenes SND/271/2020, SND/445/2020 y SND/414/2020, que introdujeron instrucciones sobre la gestión de residuos durante la crisis sanitaria, con el objetivo de flexibilizar progresivamente las medidas."),
+
+Q("Un equipo compara la regulación de residuos sanitarios de Andalucía y de otra comunidad autónoma. ¿Qué conclusión debe extraer de la tabla del tema?",
+["Las comunidades autónomas pueden tener normas propias y clasificaciones diferentes.","Todas las comunidades utilizan siempre el mismo decreto y la misma clasificación.","La normativa autonómica solo existe para los residuos radiactivos.","Las diferencias se limitan a los colores de los contenedores municipales."],0,
+"El libro presenta una tabla de regulaciones autonómicas y señala que las disposiciones pueden diferir en la definición, clasificación, manipulación y precauciones relativas a los residuos sanitarios."),
+
+Q("Un centro de Andalucía quiere localizar la norma autonómica que aparece en la tabla del libro. ¿Qué disposición se recoge?",
+["Decreto 73/2012, Reglamento de Residuos de Andalucía.","Decreto 21/2015, de gestión de residuos sanitarios del País Vasco.","Decreto 38/2015, de residuos sanitarios de Galicia.","Decreto 83/1999, de residuos biosanitarios y citotóxicos de Madrid."],0,
+"La tabla del tema relaciona Andalucía con el Decreto 73/2012, que aprueba el Reglamento de Residuos de Andalucía."),
+
+Q("Una alumna trabaja con el concepto de Lista Europea de Residuos (LER). ¿Qué función cumple según el recuadro del libro?",
+["Proporcionar una nomenclatura común europea que facilita la referencia y la gestión de los residuos.","Establecer únicamente los horarios de recogida dentro de cada hospital.","Determinar los colores de las bolsas de residuos en cada centro sanitario.","Sustituir los planes autonómicos de gestión por un catálogo de medicamentos."],0,
+"La LER es una nomenclatura común de referencia para la Unión Europea que permite identificar los residuos y favorecer la eficacia de las actividades de gestión. El tema sitúa los residuos sanitarios en el apartado 18."),
+
+Q("Un hospital necesita consultar las características que permiten clasificar un residuo como peligroso. ¿Dónde debe buscar la referencia que recoge el tema?",
+["En el anexo III de la Ley 7/2022, donde se recogen características de peligrosidad.","En la tabla de colores de los contenedores urbanos.","En el registro de constantes de los pacientes.","En la normativa exclusiva de transporte de alimentos."],0,
+"El documento indica que el anexo III recoge las características de los residuos que permiten clasificarlos como peligrosos, por ejemplo, residuos explosivos, infecciosos o mutagénicos."),
+
+Q("Un centro sanitario quiere establecer una estrategia general de gestión y objetivos mínimos, mientras que la comunidad autónoma desarrolla su propio programa. ¿Qué instrumentos describe el tema?",
+["El Plan Nacional de Residuos y los planes autonómicos correspondientes.","Únicamente el plan de limpieza de cada habitación.","El protocolo de esterilización del material quirúrgico.","El inventario anual de medicamentos del hospital."],0,
+"El tema explica que el Plan Nacional define la estrategia general de gestión de residuos y los objetivos mínimos, mientras que las comunidades autónomas elaboran sus respectivos planes autonómicos."),
+
+Q("Un profesional confunde reutilizar con reciclar y afirma que ambos conceptos significan transformar un residuo en materia prima. ¿Qué distinción aparece en el recuadro del libro?",
+["Reutilizar es emplear otra vez un producto usado para el mismo fin; reciclar es transformar el residuo para darle el mismo fin u otros.","Reutilizar consiste en destruir el residuo y reciclar en almacenarlo indefinidamente.","Ambos términos significan desechar un producto después de su uso.","Reciclar consiste en volver a utilizar el producto sin ningún tratamiento."],0,
+"El documento distingue reutilizar —emplear otra vez un producto usado para el mismo fin, aplazando su consideración como residuo— de reciclar, que consiste en transformar un residuo para darle el mismo fin u otros."),
+
+Q("Un hospital pretende reducir el volumen de residuos antes de decidir qué método de tratamiento aplicar. ¿Qué jerarquía de gestión debe orientar sus decisiones según la Ley 7/2022 presentada en el tema?",
+["Prevención, preparación para la reutilización, reciclado, otras formas de valorización y eliminación.","Eliminación, incineración, reciclado, reutilización y prevención.","Reciclado, eliminación, prevención, almacenamiento y compactación.","Valorización energética, eliminación, prevención, reutilización y reciclado."],0,
+"La jerarquía recogida en el tema sitúa primero la prevención, después la preparación para la reutilización, el reciclado, otras formas de valorización —incluida la energética— y, al final, la eliminación."),
+
+Q("Un centro sanitario separa papel, metales, vidrio y plástico para facilitar su reciclado. ¿Qué objetivo de la política de residuos está aplicando?",
+["Recogida selectiva.","Eliminación directa.","Incineración preventiva.","Compactación conjunta."],0,
+"La recogida selectiva permite separar materiales orgánicos fermentables y materiales reciclables o valorizables. El documento también recoge la obligación de separar determinados materiales como papel, metales, plástico y vidrio."),
+
+Q("Una alumna afirma que la Ley 7/2022 se aplica sin excepciones a cualquier material imaginable. ¿Qué matiz aparece en la tabla del libro?",
+["Se aplica a los residuos con excepciones, como emisiones a la atmósfera, suelos no contaminados excavados, residuos radiactivos y determinadas materias fecales.","Se aplica exclusivamente a los residuos sanitarios peligrosos.","No se aplica a ningún residuo generado en centros sanitarios.","Se aplica únicamente a residuos sólidos de origen doméstico."],0,
+"El cuadro del tema señala que la ley se aplica a todos los residuos, salvo determinadas excepciones que enumera, entre ellas emisiones a la atmósfera, suelos no contaminados excavados, residuos radiactivos y otras categorías específicas."),
+
+Q("Un centro sanitario produce una gran cantidad de residuos y decide estudiar su gestión desde el momento en que se generan hasta su destino final. ¿Por qué es necesario hacerlo de forma integral?",
+["Porque una gestión incorrecta puede afectar a la salud humana, a los trabajadores, a los pacientes y al medio ambiente.","Porque todos los residuos sanitarios son peligrosos y deben incinerarse.","Porque el almacenamiento sustituye a la segregación y al tratamiento.","Porque la gestión termina cuando el residuo sale de la habitación."],0,
+"El tema relaciona el aumento de residuos con riesgos para los seres vivos y el medio ambiente. La gestión debe abarcar la clasificación en origen, recogida, almacenamiento, transporte, tratamiento y eliminación."),
+
+Q("Un servicio sanitario quiere reducir el impacto de los residuos sin disminuir la seguridad asistencial. ¿Qué combinación responde mejor a la finalidad de la política de residuos?",
+["Prevenir la generación innecesaria, clasificar correctamente y aprovechar los materiales cuando sea seguro.","Aumentar el uso de desechables y mezclar después todos los residuos.","Eliminar todos los residuos en el contenedor más cercano.","Tratar de forma idéntica los materiales ordinarios y los peligrosos."],0,
+"Las políticas de gestión buscan minimizar la generación, valorizar cuando sea posible, prevenir riesgos reales mediante una clasificación correcta y reducir la contaminación ambiental."),
+
+Q("Un profesional sostiene que solo los residuos sólidos pueden considerarse sanitarios. ¿Qué definición del tema debe utilizarse?",
+["Los residuos sanitarios pueden presentar cualquier estado físico.","Solo son residuos sanitarios los sólidos y los líquidos quedan excluidos.","Los residuos sanitarios son siempre líquidos biológicos.","Únicamente se consideran residuos sanitarios los objetos punzantes."],0,
+"La definición del libro señala que los residuos sanitarios son desechos generados en establecimientos donde se realizan actividades sanitarias y que pueden presentar cualquier estado físico."),
+
+Q("Una alumna analiza un incremento de residuos en un hospital con ingresos más tempranos y estancias prolongadas. ¿Qué relación establece el libro?",
+["Las estancias hospitalarias más precoces y de mayor duración contribuyen al aumento de residuos generados.","Las estancias más largas reducen necesariamente los residuos por paciente.","La duración de la estancia no influye en la generación de residuos.","Solo influye el número de consultas externas, no los ingresos."],0,
+"El aumento de residuos se relaciona en el documento, entre otros factores, con estancias hospitalarias más precoces y de mayor duración."),
+
+Q("Un hospital produce residuos de naturaleza muy variada, desde restos de jardinería hasta material contaminado. ¿Qué criterio general ayuda a comprender por qué no pueden gestionarse todos igual?",
+["La naturaleza del residuo y el tipo de contaminación o riesgo que puede provocar.","El tamaño físico del residuo como único criterio.","El servicio que lo genera, sin considerar su composición.","El horario en el que se deposita, independientemente de su peligrosidad."],0,
+"El tema explica que los residuos pueden clasificarse por su naturaleza —sólidos o líquidos— y por el tipo de contaminación que pueden provocar —biológica o química—. La gestión debe adaptarse al riesgo."),
+
+Q("Una dirección hospitalaria quiere que la gestión de residuos se realice de forma coordinada entre diferentes colectivos. ¿Qué órgano recomienda crear el tema?",
+["Una Comisión de Residuos con representación de los colectivos implicados.","Un comité formado exclusivamente por pacientes.","Un departamento de compras sin personal sanitario.","Una comisión integrada únicamente por empresas transportistas."],0,
+"El recuadro del tema recomienda crear una Comisión de Residuos con participación de médicos, enfermeros, personal de limpieza y otros colectivos implicados. La comisión ordenaría la gestión con el apoyo de la dirección o gerencia.")
+],
+
+/* =========================================================
+   BLOQUE 2. TIPOS DE RESIDUOS SANITARIOS Y ETIQUETADO
+   30 PREGUNTAS
+========================================================= */
+clasificacion:[
+
+Q("Una cafetería hospitalaria desecha restos de comida, papel administrativo y material de jardinería. Según la clasificación general del tema, ¿qué tipo de residuos son?",
+["Tipo I, asimilables a residuos municipales.","Tipo II, sanitarios no específicos.","Tipo III, sanitarios específicos de riesgo.","Tipo IV, residuos tipificados en normativas singulares."],0,
+"Los residuos tipo I proceden de actividades cotidianas no sanitarias, como hostelería, administración, mobiliario o jardinería. No presentan contaminación biológica específica."),
+
+Q("En una habitación se desecha una caja de cartón limpia que no ha estado en contacto con pacientes ni con productos biológicos. ¿Cómo debe clasificarse según la NTP 372?",
+["Tipo I.","Tipo II.","Tipo III.","Tipo IV."],0,
+"Los residuos tipo I son asimilables a residuos municipales y proceden de actividades no sanitarias. Incluyen, entre otros, materiales de actividades administrativas y hosteleras."),
+
+Q("Un centro elimina envases vacíos de medicamentos convencionales y no contienen restos de productos citotóxicos. ¿Qué clasificación general corresponde?",
+["Tipo I, asimilables a residuos municipales.","Tipo II, sanitarios no específicos.","Tipo III, específicos de riesgo.","Tipo IV, medicamentos citotóxicos."],0,
+"El tema incluye los envases vacíos de medicamentos en el tipo I, con la excepción de los envases de medicamentos citostáticos o citotóxicos, que tienen una gestión especial."),
+
+Q("Una caja de medicamentos contiene envases que han alojado un fármaco citotóxico. ¿Por qué no debe clasificarse como un residuo tipo I ordinario?",
+["Porque los envases de citotóxicos se incluyen en los residuos tipo IV y requieren gestión específica.","Porque todos los envases de medicamentos pertenecen siempre al tipo II.","Porque los envases de citotóxicos se consideran residuos urbanos reciclables.","Porque el tipo I incluye cualquier envase sin excepción."],0,
+"Los residuos tipo IV incluyen restos de medicamentos citotóxicos y los envases que los hayan contenido. El tema excluye estos envases de los residuos tipo I."),
+
+Q("Una auxiliar retira material de curas con gasas y apósitos manchados de sangre de un paciente sin infección conocida. ¿Qué clasificación utiliza el tema?",
+["Tipo II, residuos sanitarios no específicos.","Tipo I, residuos municipales.","Tipo III, residuos específicos de riesgo.","Tipo IV, residuos químicos."],0,
+"El material de curas manchado con sangre o fluidos de pacientes no infecciosos aparece entre los ejemplos de residuos tipo II. Si procede de pacientes con infecciones que implican riesgo específico, pasaría al tipo III."),
+
+Q("Un centro desecha una bolsa vacía de orina después de eliminar previamente la orina por el sumidero. El paciente no presenta infección. ¿Qué grupo corresponde?",
+["Tipo II.","Tipo I.","Tipo III.","Tipo IV."],0,
+"El tema incluye las bolsas vacías de orina, sondas y catéteres procedentes de pacientes no infecciosos en el tipo II. La orina se elimina previamente por el sumidero o desagüe."),
+
+Q("Una enfermera termina una perfusión y retira el equipo vacío de gotero. ¿Qué debe hacerse con la aguja y con el resto del equipo si procede de un paciente no infeccioso?",
+["La aguja va al contenedor específico de punzantes y el resto puede clasificarse como tipo II.","Todo el sistema se considera tipo I y se deposita en el contenedor de envases.","Todo el material debe clasificarse como tipo IV.","La aguja y el equipo se eliminan juntos en una bolsa urbana."],0,
+"Los equipos vacíos de gotero aparecen como residuos tipo II, pero el tema puntualiza que la aguja debe eliminarse en un contenedor específico para punzantes."),
+
+Q("Un paciente no infeccioso utiliza una sonda vesical y una bolsa de diuresis. Al retirarlas, el personal debe clasificarlas. ¿Qué opción coincide con el libro?",
+["Sonda y bolsa vacía de orina: tipo II; aguja o elemento punzante: contenedor específico correspondiente.","Todos los elementos: tipo I, por no contener líquidos.","Todos los elementos: tipo III, por haberse utilizado en una técnica invasiva.","Sonda: tipo IV; bolsa: tipo I."],0,
+"El tema incluye las bolsas vacías de orina, las sondas y los catéteres en el tipo II cuando proceden de pacientes no infecciosos. Los objetos punzantes requieren un recipiente específico."),
+
+Q("Una gasa manchada de sangre procede de un paciente con una infección altamente contagiosa. ¿Qué diferencia respecto a una gasa similar de un paciente no infeccioso debe aplicarse según el tema?",
+["La procedente del paciente infeccioso se considera tipo III.","Ambas se consideran tipo I porque son materiales desechables.","La procedente del paciente infeccioso se considera siempre tipo IV.","La procedente del paciente no infeccioso es tipo IV y la otra tipo II."],0,
+"El documento indica que los materiales incluidos en el tipo II, si proceden de pacientes infecciosos, pasan a considerarse residuos tipo III."),
+
+Q("Un residuo de una técnica asistencial no tiene riesgo infeccioso específico, pero puede ser peligroso para el personal que lo manipula directamente y para pacientes inmunodeprimidos. ¿Qué grupo describe esta situación?",
+["Tipo II, sanitario no específico.","Tipo I, municipal.","Tipo III, específico de riesgo para toda la comunidad.","Tipo IV, residuo regulado por normativa singular."],0,
+"Los residuos tipo II proceden de la actividad sanitaria directa y no se consideran infecciosos por su naturaleza y composición. Sin embargo, el tema señala que pueden suponer un riesgo para el personal que los manipula y para pacientes inmunodeprimidos."),
+
+Q("Un centro tiene que eliminar un material sanitario potencialmente contaminado que puede afectar a personas dentro y fuera del hospital. ¿Qué grupo corresponde?",
+["Tipo III, residuos sanitarios específicos de riesgo.","Tipo I, asimilables a municipales.","Tipo II, no específicos.","Tipo IV, residuos no incluidos en el tipo III."],0,
+"Los residuos tipo III son potencialmente contaminados y pueden generar riesgos para la salud tanto dentro como fuera del centro sanitario."),
+
+Q("Un hospital atiende a un paciente con cólera y debe desechar pañales y empapadores utilizados durante la asistencia. ¿Qué clasificación recoge el tema?",
+["Tipo III, por tratarse de residuos de un paciente con infección de transmisión oral-fecal.","Tipo II, porque los pañales son siempre residuos no infecciosos.","Tipo I, porque proceden de material de uso cotidiano.","Tipo IV, porque todos los residuos de pacientes con diarrea son químicos."],0,
+"El documento incluye entre los residuos infecciosos de tipo III los procedentes de pacientes con infecciones de transmisión oral-fecal, como el cólera, incluyendo pañales, guantes y empapadores."),
+
+Q("Un paciente con tuberculosis utiliza pañuelos y mascarillas que se desechan después de la asistencia. ¿Qué tipo de residuo corresponde?",
+["Tipo III, por proceder de una infección transmitida por aerosoles.","Tipo I, porque los pañuelos son residuos urbanos.","Tipo II, independientemente del estado infeccioso del paciente.","Tipo IV, porque contienen sustancias químicas."],0,
+"Los residuos de pacientes con infecciones transmitidas por aerosoles, como la tuberculosis, se incluyen en el tipo III. El tema cita pañuelos, mascarillas y gafas nasales."),
+
+Q("Un filtro de diálisis procede de un paciente con hepatitis B. ¿Qué clasificación debe aplicarse según el documento?",
+["Tipo III, residuo específico de riesgo por infección transmitida por sangre.","Tipo II, porque los filtros de diálisis son siempre no infecciosos.","Tipo I, porque el filtro ya ha sido utilizado.","Tipo IV, porque todo material de diálisis contiene productos químicos."],0,
+"El tema incluye los filtros de diálisis relacionados con infecciones de transmisión sanguínea, como VIH y hepatitis B y C, dentro de los residuos tipo III."),
+
+Q("Durante una intervención se obtiene un pequeño resto anatómico humano reconocible. ¿Cómo lo clasifica el tema?",
+["Tipo III, residuo anatómico de pequeña entidad.","Tipo I, residuo municipal.","Tipo II, residuo sanitario no específico.","Tipo IV, resto anatómico de gran entidad."],0,
+"Los restos anatómicos humanos reconocibles y de pequeña entidad se incluyen en el tipo III. Los restos de entidad suficiente, como órganos enteros o restos que comprenden hueso, aparecen en el tipo IV."),
+
+Q("Un recipiente contiene sangre o hemoderivados en estado líquido. ¿Qué clasificación corresponde según el libro?",
+["Tipo III, siempre que se trate de líquidos contenidos en recipientes.","Tipo II, igual que cualquier material manchado.","Tipo I, por ser un envase utilizado en una técnica sanitaria.","Tipo IV, porque toda sustancia líquida es química."],0,
+"El tema incluye en el tipo III los recipientes que contienen sangre o hemoderivados en forma líquida. Aclara que se trata de líquidos y no de materiales simplemente manchados o que los hayan absorbido."),
+
+Q("Una hoja de bisturí utilizada en una intervención se va a desechar. ¿Qué característica determina su clasificación?",
+["Es un material cortante o punzante y se incluye entre los residuos tipo III.","Es un residuo tipo I porque no contiene líquido visible.","Es un residuo tipo II en todos los casos, aunque pueda perforar.","Es un residuo tipo IV porque procede de una intervención quirúrgica."],0,
+"Las agujas, hojas de bisturí, portaobjetos, pipetas y tubos de vidrio figuran entre los residuos tipo III por su capacidad de cortar o perforar."),
+
+Q("Un laboratorio desecha una placa de Petri con un cultivo de microorganismos. ¿Qué clasificación corresponde?",
+["Tipo III, cultivo o reserva de agentes infecciosos.","Tipo I, material de laboratorio ordinario.","Tipo II, porque el recipiente es desechable.","Tipo IV, exclusivamente por tratarse de un material de vidrio."],0,
+"Los cultivos y reservas de agentes infecciosos, entre ellos hemocultivos, placas de Petri y reservas de microorganismos, se clasifican como residuos tipo III."),
+
+Q("Un laboratorio elimina vacunas vivas atenuadas que ya no se utilizarán. ¿A qué grupo pertenecen según la clasificación del tema?",
+["Tipo III, cultivos y reservas de agentes infecciosos.","Tipo I, envases de medicamentos convencionales.","Tipo II, productos sanitarios no específicos.","Tipo IV, por tratarse de medicamentos caducados."],0,
+"El tema incluye las vacunas vivas atenuadas dentro de los cultivos y reservas de agentes infecciosos considerados tipo III."),
+
+Q("Un hospital debe clasificar restos de un medicamento antitumoral citotóxico y el equipo de administración utilizado. ¿Qué grupo corresponde?",
+["Tipo IV, residuos citotóxicos.","Tipo II, material sanitario no específico.","Tipo III, exclusivamente por proceder de una técnica asistencial.","Tipo I, si el envase está vacío."],0,
+"Los residuos citotóxicos se clasifican como tipo IV e incluyen restos de medicamentos, sus envases, equipos de administración y material textil manchado con estos productos."),
+
+Q("Una bolsa contiene gasas y material textil manchados con restos de un medicamento citotóxico. ¿Qué criterio debe aplicarse?",
+["Clasificar todo el material contaminado con el citotóxico como residuo tipo IV.","Clasificar las gasas como tipo II porque son material de curas.","Clasificar la bolsa como tipo I si no contiene sangre.","Clasificarlo como tipo III por el mero hecho de haber sido utilizado."],0,
+"El tema incluye expresamente el material textil manchado con medicamentos citotóxicos en el tipo IV. La contaminación con estos productos determina su gestión específica."),
+
+Q("Un almacén recibe medicamentos caducados que no tienen propiedades citotóxicas. ¿Qué grupo los recoge según la clasificación general?",
+["Tipo IV, residuos de medicamentos no citotóxicos.","Tipo I, junto con todos los envases vacíos.","Tipo II, porque proceden de la actividad sanitaria.","Tipo III, por ser potencialmente infecciosos."],0,
+"Los residuos tipo IV incluyen medicamentos caducados, medicamentos que no tienen especificaciones adecuadas y aquellos cuya naturaleza puede haberse alterado."),
+
+Q("Un laboratorio desecha un disolvente con más de un 2 % de halógenos. ¿Cómo lo clasifica el tema dentro de los residuos químicos?",
+["Disolvente halogenado, residuo químico líquido del tipo IV.","Disolvente no halogenado, residuo tipo II.","Residuo infeccioso tipo III.","Residuo urbano tipo I."],0,
+"El tema define los disolventes halogenados como aquellos que contienen más de un 2 % de halógenos, como cloro, flúor o yodo. Son residuos químicos líquidos del tipo IV."),
+
+Q("Un laboratorio desecha alcohol utilizado como disolvente, con un contenido inferior al 2 % de halógenos. ¿Qué categoría química describe el documento?",
+["Disolvente no halogenado.","Disolvente halogenado.","Residuo citotóxico.","Residuo anatómico."],0,
+"Los disolventes no halogenados poseen menos de un 2 % de halógenos. El tema cita alcoholes y glicoles como ejemplos y advierte de que pueden ser tóxicos e inflamables."),
+
+Q("Un centro elimina líquidos procedentes del revelado de radiografías. ¿Qué característica de peligrosidad resalta el tema?",
+["Son residuos químicos líquidos corrosivos.","Son residuos biológicos de tipo II.","Son residuos municipales de tipo I.","Son residuos citotóxicos de naturaleza infecciosa."],0,
+"Los líquidos procedentes del revelado de radiografías aparecen dentro de los residuos químicos líquidos del tipo IV y se describen como corrosivos."),
+
+Q("Un laboratorio desecha reactivos químicos sólidos inflamables, como el tetraóxido de osmio. ¿Qué clasificación corresponde?",
+["Tipo IV, residuos químicos sólidos.","Tipo III, residuos infecciosos.","Tipo II, residuos sanitarios no específicos.","Tipo I, residuos asimilables a municipales."],0,
+"El tema incluye los reactivos químicos de laboratorio entre los residuos químicos sólidos de tipo IV y señala que pueden ser inflamables."),
+
+Q("Tras una operación se generan restos humanos que comprenden hueso y tienen entidad suficiente. ¿Cómo se clasifican en el esquema general del tema?",
+["Tipo IV, restos anatómicos de entidad.","Tipo III, por ser cualquier resto anatómico.","Tipo II, por proceder de actividad quirúrgica.","Tipo I, por no estar en contacto con productos químicos."],0,
+"El tipo IV incluye cadáveres y restos humanos procedentes de abortos, autopsias, mutilaciones u operaciones, como órganos enteros, huesos y restos anatómicos que comprendan hueso."),
+
+Q("Un hospital genera residuos que emiten radiaciones ionizantes. ¿Por qué no pueden gestionarse como un residuo sanitario ordinario?",
+["Porque requieren un tratamiento especial y su gestión corresponde a ENRESA según el marco presentado en el tema.","Porque se convierten en residuos municipales al cerrar el recipiente.","Porque pueden neutralizarse con agua y detergente.","Porque se clasifican como tipo II si no están manchados."],0,
+"Los residuos radiactivos emiten radiaciones ionizantes peligrosas para la salud y el medio ambiente. El documento indica que su gestión es competencia de ENRESA y no admite un tratamiento convencional."),
+
+Q("Un producto químico presenta el pictograma de una llama y la indicación de líquido muy inflamable. ¿Qué tipo de peligro está señalando?",
+["Peligro físico de inflamabilidad.","Peligro biológico infeccioso.","Peligro exclusivamente radiactivo.","Peligro de contaminación por microorganismos."],0,
+"El pictograma de la llama indica peligro de inflamabilidad: el producto puede inflamarse por contacto con llamas, chispas, electricidad estática, calor, fricción, aire o agua, según sus características."),
+
+Q("Un producto químico está etiquetado con el pictograma de una calavera y tibias cruzadas. ¿Qué información comunica?",
+["Toxicidad aguda, con posibilidad de efectos adversos incluso en pequeñas dosis.","Peligro de explosión por presión interna exclusivamente.","Peligro para el medio acuático sin riesgo para la salud humana.","Presencia de microorganismos que causan infecciones."],0,
+"El pictograma de la calavera representa toxicidad: el producto puede producir efectos adversos sobre la salud incluso en pequeñas dosis."),
+
+Q("Un envase presenta el pictograma de una silueta humana con una señal en el tórax. ¿Qué clase de peligro debe valorar el trabajador?",
+["Peligros graves para la salud, como efectos cancerígenos, mutágenos o toxicidad específica.","Peligro de inflamabilidad exclusivamente.","Riesgo de explosión por contacto con una chispa.","Peligro de contaminación acuática sin efectos sobre las personas."],0,
+"El pictograma de la silueta humana representa peligros graves para la salud, incluidos efectos cancerígenos, mutágenos, tóxicos para determinados órganos o sensibilización respiratoria."),
+
+Q("Un producto químico tiene el pictograma de un árbol y un pez muertos. ¿Qué riesgo identifica?",
+["Peligro para el medio ambiente, especialmente para organismos acuáticos.","Peligro de perforación por material punzante.","Peligro exclusivo de irritación ocular.","Peligro de explosión por fricción."],0,
+"El pictograma ambiental señala que el producto puede provocar efectos nefastos sobre los organismos del medio acuático."),
+
+Q("Una trabajadora encuentra en un producto químico una etiqueta con frases H y frases P. ¿Qué información aportan estas identificaciones?",
+["Las frases H identifican peligros y las frases P indican consejos de prudencia.","Las frases H indican el lote y las P identifican al paciente.","Las frases H señalan el volumen del envase y las P su fecha de fabricación.","Las frases H indican el grupo de residuo y las P su destino municipal."],0,
+"El etiquetado de los productos químicos incluye identificaciones de peligro mediante frases H y consejos de prudencia mediante frases P. También incorpora pictogramas, identificación del producto y datos del proveedor.")
+],
+
+/* =========================================================
+   BLOQUE 3. GESTIÓN, SEGREGACIÓN Y RECOGIDA
+   30 PREGUNTAS
+========================================================= */
+gestion:[
+
+Q("Un hospital quiere revisar todo el proceso seguido desde que se produce un residuo hasta que se elimina. ¿Qué operaciones forman parte de la gestión de residuos sanitarios?",
+["Segregación, recogida, almacenamiento, transporte, tratamiento, recuperación, valorización y eliminación.","Únicamente recogida y traslado al contenedor exterior.","Solo clasificación, limpieza de la habitación y alta del paciente.","Exclusivamente transporte e incineración."],0,
+"La gestión de residuos comprende las operaciones para darles un destino final adecuado: segregación, recogida, almacenamiento, transporte, tratamiento, recuperación, valorización cuando sea posible y eliminación."),
+
+Q("Un centro sanitario quiere disminuir la cantidad de residuos generados sin comprometer la seguridad. ¿Qué objetivo de gestión está aplicando?",
+["Minimización.","Incineración.","Compactación indiscriminada.","Almacenamiento prolongado."],0,
+"Uno de los objetivos de la gestión de residuos es minimizar la cantidad generada. La prevención y la reducción en origen ocupan un lugar prioritario en la jerarquía de gestión."),
+
+Q("Un servicio separa los residuos para identificar aquellos que pueden reciclarse o reutilizarse con seguridad. ¿Qué objetivo está cumpliendo?",
+["Valorización de los residuos.","Eliminación automática de todos los residuos.","Desclasificación de los residuos peligrosos.","Aumento del tiempo de almacenamiento."],0,
+"El tema contempla valorar los residuos, reciclando y reutilizando cuando sea posible, siempre que no se perjudique la salud de las personas ni el medio ambiente."),
+
+Q("Un hospital descubre que estaba tratando mediante procedimientos costosos residuos que no presentaban riesgo probado. ¿Qué objetivo de gestión debería revisar?",
+["Tratar solamente los residuos que conlleven un riesgo probado o sean infecciosos o tóxicos.","Aplicar siempre el tratamiento más intenso a cualquier residuo.","Incinerar todos los residuos para reducir la clasificación previa.","Mezclar los residuos de todos los grupos para facilitar su traslado."],0,
+"El documento señala que deben tratarse solamente los residuos que conlleven un riesgo probado para la salud o sean infecciosos o tóxicos. Esto permite también disminuir costes y reducir la necesidad de instalaciones."),
+
+Q("Un centro sanitario quiere disminuir costes y reducir instalaciones de tratamiento. ¿Qué medida se ajusta al objetivo económico recogido en el tema?",
+["Evitar tratamientos innecesarios mediante una clasificación correcta y aplicar tratamiento a los residuos que realmente lo requieren.","Tratar todos los residuos con el mismo procedimiento, aunque no presenten riesgo.","Aumentar el almacenamiento hasta que sea necesario incinerar todo.","Compactar primero todos los residuos, independientemente de su naturaleza."],0,
+"Una correcta clasificación permite tratar solo los residuos que realmente conllevan riesgo. El tema relaciona esta medida con la disminución de costes y de la necesidad de instalaciones."),
+
+Q("La dirección del hospital debe garantizar que se cumpla la normativa de clasificación, recogida, almacenamiento y entrega de residuos al transportista. ¿Quién tiene esa responsabilidad según el documento?",
+["El director o gerente del centro sanitario.","Exclusivamente el personal de limpieza.","El paciente que genera el residuo.","La empresa que realiza la incineración."],0,
+"El tema atribuye al director o gerente del centro sanitario la responsabilidad de hacer cumplir la normativa en las operaciones de clasificación, recogida, almacenaje y entrega de residuos al transportista."),
+
+Q("Un hospital desea documentar por escrito todos los protocolos y medidas de seguridad para tratar sus residuos. ¿Qué instrumento debe elaborar?",
+["Un plan de gestión intracentro de residuos.","Un plan de cuidados individual para cada paciente.","Un protocolo de visitas de familiares.","Un inventario de material clínico reutilizable."],0,
+"El plan de gestión intracentro recoge los protocolos y medidas de seguridad aplicables a la gestión de residuos dentro del centro. En algunas comunidades es obligatorio y en otras es altamente recomendable."),
+
+Q("Un centro sanitario produce residuos susceptibles de recuperar materiales valiosos. ¿Cuál de las siguientes actuaciones es un ejemplo de valorización recogido en el tema?",
+["Recuperar disolventes, metales, ácidos o bases cuando sea posible.","Mezclar todos los líquidos para facilitar su eliminación.","Incinerar materiales reutilizables sin evaluar alternativas.","Almacenar los residuos sin identificar hasta que se descompongan."],0,
+"El tema recoge como ejemplos de valorización el uso de residuos como combustible cuando sea viable y la recuperación de disolventes, metales, ácidos o bases."),
+
+Q("Una auxiliar deposita una gasa utilizada en un recipiente común, aunque el centro dispone de contenedores diferentes para cada tipo de residuo. ¿Qué principio está incumpliendo?",
+["La segregación en origen, que exige separar los residuos según su clasificación.","La obligación de transportar todos los residuos en el mismo camión.","La necesidad de compactar los residuos antes de su recogida.","La prohibición de identificar los recipientes."],0,
+"La correcta identificación y segregación por grupos debe realizarse en el lugar de origen y es responsabilidad de los trabajadores del centro sanitario."),
+
+Q("En un área asistencial se generan residuos de diferentes grupos. ¿Qué decisión reduce el riesgo y facilita el tratamiento posterior?",
+["Depositar cada tipo de residuo en el recipiente o contenedor correspondiente.","Utilizar un único contenedor para todos los residuos y separarlos después.","Mezclar los residuos peligrosos con los municipales para ahorrar espacio.","Trasladar primero todos los residuos a una zona común sin identificar."],0,
+"Cada tipo de residuo debe recogerse en su recipiente o contenedor correspondiente para que reciba el destino más adecuado y evitar mezclas peligrosas."),
+
+Q("Una bolsa de residuos sanitarios está prácticamente llena y el trabajador intenta comprimir su contenido para introducir más material. ¿Qué norma debe aplicar?",
+["No debe llenar en exceso ni compactar las bolsas, recipientes o contenedores.","Debe compactar siempre que el contenido sea sólido.","Puede llenar la bolsa hasta que no sea posible cerrarla.","Debe presionar el contenido con las manos protegidas por guantes."],0,
+"El tema indica expresamente que los recipientes, bolsas y contenedores no deben llenarse en exceso ni compactarse nunca."),
+
+Q("Un contenedor está parcialmente lleno y el servicio de limpieza quiere retirarlo inmediatamente, aunque no ha alcanzado el volumen mínimo previsto. ¿Qué criterio debe valorar?",
+["Los contenedores deben alcanzar un volumen mínimo antes de retirarse para que la gestión sea sostenible y rentable.","Los contenedores deben retirarse siempre en cuanto contengan un residuo.","El volumen no influye en la gestión de residuos sanitarios.","Los contenedores deben permanecer hasta que rebosen."],0,
+"El tema indica que los contenedores deben tener un volumen mínimo antes de retirarse, con el fin de que la gestión resulte sostenible y rentable. Esto no justifica llenarlos en exceso."),
+
+Q("Una trabajadora traslada una bolsa abierta por el pasillo y la arrastra por el suelo. ¿Qué dos aspectos del protocolo incumple?",
+["Las bolsas no deben transportarse abiertas ni arrastrarse por el suelo.","Las bolsas deben mantenerse abiertas y elevarse por encima de la cabeza.","Las bolsas deben arrastrarse solo en los pasillos de servicio.","Las bolsas deben trasladarse sin cerrar si contienen residuos tipo I."],0,
+"El tema establece que las bolsas no se deben transportar abiertas ni arrastrar por el suelo. Los contenedores deben mantenerse con la tapa cerrada."),
+
+Q("Un centro sanitario introduce una bolsa dentro de un contenedor rígido de un solo uso. ¿Qué problema puede generar esta práctica?",
+["Puede dificultar el cierre de seguridad del contenedor.","Garantiza que el contenedor pueda reutilizarse.","Permite clasificar el residuo sin necesidad de etiquetarlo.","Evita que el contenedor tenga que cerrarse."],0,
+"El tema señala que los contenedores son de un solo uso y no deben revestirse con bolsas, porque estas pueden dificultar el cierre de seguridad."),
+
+Q("Un recipiente de residuos está colocado en una zona de paso, junto a una fuente de calor. ¿Qué debería modificarse?",
+["Colocarlo en el suelo, sin entorpecer el paso y alejado de fuentes de calor.","Colocarlo sobre una mesa alta y junto a un radiador.","Situarlo en una zona de tránsito para facilitar su localización.","Mantenerlo en altura, aunque pueda caer."],0,
+"Los recipientes deben depositarse en el suelo para prevenir caídas, no deben entorpecer el paso y deben estar alejados de fuentes de calor."),
+
+Q("Un hospital segrega correctamente los residuos tipo I para favorecer el reciclaje. ¿Dónde debe depositar el papel y el cartón?",
+["En el contenedor azul.","En el contenedor verde.","En el contenedor amarillo.","En el contenedor verde oscuro."],0,
+"El tema recoge el contenedor azul para papel y cartón; verde para vidrio; amarillo para envases; y verde oscuro —marrón en algunas comunidades— para orgánicos y resto."),
+
+Q("Una trabajadora encuentra una botella de vidrio limpia y vacía que no ha estado en contacto con material biológico. ¿Qué contenedor debe utilizar?",
+["Contenedor verde para vidrio.","Contenedor azul para papel y cartón.","Contenedor amarillo para envases metálicos y briks.","Contenedor verde oscuro para residuos orgánicos."],0,
+"En la separación de residuos tipo I, el contenedor verde se destina al vidrio."),
+
+Q("En un servicio se desechan latas, envases de plástico y briks limpios. ¿Qué separación corresponde según el esquema del libro?",
+["Contenedor amarillo para envases.","Contenedor azul para papel y cartón.","Contenedor verde para vidrio exclusivamente.","Contenedor verde oscuro para restos orgánicos."],0,
+"El contenedor amarillo se destina a envases de plástico, envases metálicos y briks, además de otros envases indicados en el esquema de reciclaje."),
+
+Q("Una bolsa destinada a residuos tipo I se prepara para su recogida. ¿Qué conjunto de características debe reunir?",
+["Ser de plástico, impermeable, opaca y resistente, con volumen y color determinados.","Ser transparente, permeable, ligera y abierta para facilitar la ventilación.","Ser de papel, absorbente y sin resistencia a la rotura.","Ser de tela reutilizable y sin identificación de volumen."],0,
+"El tema indica que las bolsas de tipo I deben ser de plástico, impermeables, opacas y resistentes, con volumen y color determinados, generalmente negras o grises."),
+
+Q("Una bolsa de residuos tipo I está cerrada y se introduce en otra bolsa de mayor tamaño y resistencia. ¿Qué se hace posteriormente?",
+["Se cierra y se introduce en un contenedor cerrado y remolcable.","Se deja abierta en el pasillo hasta su transporte.","Se vacía en una bolsa de residuos tipo III.","Se mezcla con los residuos químicos líquidos."],0,
+"El libro explica que las bolsas de tipo I suelen introducirse en otras de mayor tamaño y resistencia, del mismo color. Una vez cerradas, se depositan en contenedores cerrados y remolcables."),
+
+Q("Un carro que transporta residuos tipo I termina su recorrido. ¿Qué mantenimiento recomienda el documento?",
+["Limpiar con agua y detergente los contenedores y carros utilizados.","Revestir el contenedor con una nueva bolsa para reutilizarlo.","Dejar los restos acumulados hasta el siguiente turno.","Esterilizar el carro con un autoclave después de cada recorrido."],0,
+"El tema recomienda limpiar con agua y detergente los contenedores y carros empleados para residuos tipo I. También aconseja no acumular demasiado papel para disminuir el riesgo de incendio."),
+
+Q("Un trabajador clasifica material de curas manchado de fluidos de un paciente no infeccioso en una bolsa verde. ¿Qué grupo está siguiendo?",
+["Tipo II, residuos sanitarios no específicos.","Tipo I, residuos asimilables a urbanos.","Tipo III, residuos específicos de riesgo.","Tipo IV, residuos citotóxicos."],0,
+"El documento indica que los residuos tipo II suelen recogerse en bolsas normalizadas, generalmente verdes, opacas, impermeables y resistentes a la humedad y rotura."),
+
+Q("Un contenedor de residuos tipo II está destinado a bolsas de hasta 70 litros y tiene tapa verde. ¿Qué característica adicional deben cumplir las bolsas?",
+["Ser opacas, impermeables y resistentes a la humedad y a la rotura.","Ser transparentes y permeables para permitir observar el contenido.","Ser de papel y no tener cierre.","Ser de un solo uso, pero sin resistencia a la rotura."],0,
+"El tema señala que las bolsas de tipo II deben ser opacas, impermeables, resistentes a humedad y rotura, con volumen no superior a 70 litros y generalmente de color verde."),
+
+Q("Un trabajador se coloca guantes para retirar residuos tipo II, pero después toca el teléfono y el pomo de una puerta con esos mismos guantes. ¿Qué norma incumple?",
+["No debe tocar personas, objetos ni superficies con los guantes que han estado en contacto con los residuos.","Debe conservar los guantes puestos para evitar contaminarse las manos.","Solo debe cambiarse los guantes cuando la bolsa esté rota.","Puede tocar cualquier superficie si la bolsa está cerrada."],0,
+"El tema indica que se utilizarán guantes para evitar el contacto directo con los residuos tipo II y que no se debe tocar con ellos a ninguna persona, objeto o superficie."),
+
+Q("Una bolsa de residuos tipo II está llena. El trabajador decide verter su contenido en otra bolsa para reducir el número de recipientes. ¿Qué debe hacer?",
+["No trasvasar residuos de un recipiente a otro ni hurgar en su contenido.","Trasvasar siempre los residuos para homogeneizar el material.","Compactar el contenido antes de introducirlo en otra bolsa.","Separar manualmente los materiales reutilizables."],0,
+"En los residuos tipo II no se deben trasvasar los residuos de un recipiente a otro ni hurgar dentro de su contenido, para evitar el contacto y la contaminación."),
+
+Q("Un recipiente contiene restos potencialmente infecciosos y debe identificarse como residuo tipo III. ¿Qué características recoge el documento para estos recipientes?",
+["Ser rígidos o semirrígidos, opacos, impermeables, resistentes a golpes y roturas y con cierre automático.","Ser permeables, transparentes, flexibles y sin sistema de cierre.","Ser de papel, de gran tamaño y reutilizables.","Ser abiertos, ligeros y sin indicación del tipo de residuo."],0,
+"Los recipientes homologados de tipo III deben ser rígidos o semirrígidos, opacos, impermeables, ligeros, resistentes a golpes, perforación y rotura, y disponer de tapa de cierre automático."),
+
+Q("Una bolsa de residuos específicos de riesgo se fabrica con material de gran grosor. ¿Qué galga mínima recoge el tema?",
+["Galga 400 mg/cm² o superior.","Galga 70 mg/cm² como máximo.","Galga 220 mg/cm² como mínimo obligatorio.","Galga 100 mg/cm² sin límite superior."],0,
+"El documento indica que los residuos sanitarios específicos de riesgo se recogen en bolsas de gran grosor, con galga 400 mg/cm² o más, o en recipientes homologados."),
+
+Q("Un recipiente de residuos tipo III es opaco, resistente y tiene tapa automática, pero no está rotulado. ¿Qué elemento falta?",
+["La indicación «residuo específico de riesgo» y, según la comunidad, el pictograma de biopeligroso.","La fecha de caducidad del recipiente y el nombre del paciente.","La etiqueta de papel reciclable y el símbolo de vidrio.","El número de habitación y la identificación del profesional que lo utilizó."],0,
+"Los recipientes de tipo III deben estar rotulados con la indicación «residuo específico de riesgo». En algunas comunidades también deben llevar el pictograma de biopeligroso."),
+
+Q("Un contenedor pequeño de agujas alcanza el 90 % de su capacidad. ¿Qué actuación debería haberse realizado antes?",
+["Retirarlo al alcanzar como máximo las tres cuartas partes de su capacidad.","Seguir llenándolo hasta que no pueda cerrarse.","Abrirlo y compactar las agujas para reducir volumen.","Trasvasar las agujas a otro recipiente de mayor tamaño."],0,
+"Los recipientes para cortantes y punzantes no deben llenarse en más de las tres cuartas partes de su capacidad. Suelen llevar una marca que indica el límite máximo."),
+
+Q("Un recipiente de agujas ha alcanzado la marca de llenado, pero un trabajador quiere seguir utilizándolo para ahorrar recursos. ¿Qué debe hacer?",
+["Cerrar definitivamente el recipiente y retirarlo, sin sobrepasar la marca de llenado.","Presionar el contenido para dejar espacio adicional.","Abrir el cierre y retirar algunas agujas con pinzas.","Trasvasar las agujas a un contenedor de residuos tipo II."],0,
+"Los recipientes de cortantes y punzantes no deben llenarse por encima de las tres cuartas partes. Al llegar a la marca, deben cerrarse definitivamente para su retirada."),
+
+Q("Un recipiente para agujas dispone de un sistema de cierre automático e irreversible. ¿Qué precaución indica el tema sobre el cierre?",
+["No debe cerrarse definitivamente hasta que esté completo dentro del límite autorizado de llenado.","Debe cerrarse y abrirse repetidamente para comprobar su contenido.","Debe mantenerse siempre abierto durante el transporte.","Debe sustituirse por una bolsa flexible cuando alcance la mitad de su capacidad."],0,
+"El tema indica que estos recipientes tienen un sistema de cierre automático e irreversible y que no deben cerrarse hasta no estar completos, respetando siempre el límite de tres cuartas partes."),
+
+Q("Un servicio produce residuos químicos líquidos de distintos grupos. ¿Qué actuación está prohibida?",
+["Mezclar residuos químicos líquidos de grupos diferentes, porque pueden ser incompatibles.","Utilizar recipientes homologados e identificados.","Consultar las fichas de datos de seguridad.","Comprobar que el recipiente es el adecuado antes del vertido."],0,
+"Los residuos químicos líquidos se clasifican en distintos grupos que nunca deben mezclarse, porque pueden producirse incompatibilidades y reacciones peligrosas."),
+
+Q("Un trabajador va a verter un residuo químico líquido y observa que el recipiente empieza a calentarse y desprende gases. ¿Qué debe hacer?",
+["Interrumpir el vertido y aplicar las medidas de seguridad previstas.","Continuar lentamente hasta completar el recipiente.","Añadir otro residuo para neutralizar la reacción.","Abrir el recipiente y acercar el rostro para identificar el gas."],0,
+"El tema indica que el vertido debe hacerse lenta y controladamente, y que debe interrumpirse si se observa producción de gases, aumento elevado de temperatura o cualquier fenómeno extraño."),
+
+Q("Un recipiente homologado para residuos químicos líquidos está lleno al 85 %. Un trabajador intenta añadir más producto. ¿Qué norma está incumpliendo?",
+["Los recipientes para líquidos deben llenarse hasta un máximo del 80 % de su capacidad.","Los recipientes deben llenarse siempre al 100 %.","Los residuos líquidos deben depositarse en contenedores para residuos sólidos.","El volumen del recipiente no debe controlarse."],0,
+"El tema establece que los recipientes para líquidos deben llenarse al 80 % de su capacidad. Es necesario controlar el espacio disponible antes de cada nuevo vertido.")
+],
+
+/* =========================================================
+   BLOQUE 4. TRANSPORTE Y ALMACENAMIENTO
+   30 PREGUNTAS
+========================================================= */
+transporte:[
+
+Q("Una vez segregados los residuos, deben trasladarse desde las unidades asistenciales a las zonas de almacenamiento del hospital. ¿Cómo se denomina esta fase?",
+["Gestión intracentro.","Gestión extracentro.","Valorización energética.","Tratamiento final externo."],0,
+"La gestión intracentro comprende las operaciones que se realizan dentro del centro sanitario, como la recogida, el transporte interno y el almacenamiento previo al tratamiento."),
+
+Q("Una empresa autorizada recoge los residuos y los lleva a una instalación externa para su tratamiento. ¿A qué fase corresponde?",
+["Gestión extracentro.","Segregación en origen.","Gestión intracentro.","Clasificación clínica."],0,
+"La gestión extracentro comprende las tareas de recogida, transporte, tratamiento y eliminación que se realizan fuera del centro sanitario."),
+
+Q("Un trabajador deposita bolsas de residuos en el pasillo porque no hay espacio en la unidad. ¿Qué criterio del tema incumple?",
+["Los residuos solo deben depositarse en el lugar de producción o en un almacén autorizado.","Los residuos pueden acumularse en cualquier zona si están cerrados.","Los pasillos son el lugar preferente para el almacenamiento intermedio.","Los residuos deben permanecer siempre junto a la puerta de la habitación."],0,
+"El documento indica que los residuos no deben depositarse en lugares distintos al lugar donde se producen o a un almacén. No deben dejarse en zonas de paso."),
+
+Q("Un centro sanitario dispone de un almacén intermedio para guardar los residuos antes de llevarlos al almacén final. ¿Qué plazo máximo establece el tema para el traslado al almacén final?",
+["12 horas.","24 horas.","48 horas.","72 horas."],0,
+"El documento permite disponer de un almacén intermedio, pero establece que los residuos deben trasladarse al almacén final en un máximo de 12 horas."),
+
+Q("Una bolsa llega al almacén final y permanece allí durante cuatro días antes de su retirada. ¿Qué norma del tema se está incumpliendo?",
+["El periodo máximo de depósito en el almacén final es de 72 horas.","El periodo máximo es de 12 días.","No existe ningún límite de almacenamiento.","El plazo máximo es de siete días si la bolsa es opaca."],0,
+"El tema establece un periodo máximo de depósito de 72 horas en el almacén final de residuos sanitarios."),
+
+Q("Un hospital habilita un almacén final de residuos en un local pequeño, mal ventilado y sin señalización. ¿Qué características debería corregir?",
+["Debe ser espacioso, iluminado y ventilado, estar señalizado, delimitado y aislado y permitir una limpieza sencilla.","Debe ser oscuro, húmedo y de acceso común a pacientes y visitas.","Debe situarse en una zona de paso para facilitar las retiradas.","Debe carecer de superficies lavables para evitar acumulaciones de agua."],0,
+"El almacén final debe ser espacioso, tener buena iluminación y ventilación, estar señalizado, delimitado y aislado, y permitir limpiarlo y desinfectarlo fácilmente."),
+
+Q("Un equipo de limpieza planifica la retirada de residuos a una hora de gran afluencia de pacientes y familiares. ¿Qué recomendación del tema debería considerar?",
+["Realizar el transporte cuando haya menor presencia de público en el centro.","Transportar siempre durante las horas de visita para facilitar la supervisión.","Elegir el horario de mayor movimiento para reducir el tiempo de traslado.","Evitar los horarios establecidos y utilizar las zonas de espera."],0,
+"El recuadro del tema indica que debe intentarse que el transporte se realice en horarios de menor presencia de público en el centro sanitario."),
+
+Q("El hospital establece un itinerario para trasladar residuos desde las unidades hasta el almacén final. ¿Qué criterio debe respetar?",
+["Separar las zonas limpias y sucias del centro sanitario.","Atravesar siempre las zonas de preparación de alimentos.","Utilizar preferentemente las salas de espera.","Cruzar las zonas limpias para acortar el recorrido, aunque se mezclen circuitos."],0,
+"El tema recomienda establecer itinerarios de transporte que respeten las zonas de limpio y sucio del centro sanitario."),
+
+Q("Una empresa recoge residuos tipo I y tipo II y los transporta al mismo centro de disposición de residuos municipales. ¿Es compatible con el esquema del libro?",
+["Sí, porque la gestión extracentro de los tipos I y II puede realizarse conjuntamente.","No, porque los tipos I y II deben incinerarse siempre por separado.","No, porque los residuos tipo II nunca pueden salir del hospital.","Sí, pero solo si ambos se compactan juntos antes del traslado."],0,
+"El documento indica que los residuos tipo I y II, por ser municipales o asimilables a municipales, pueden gestionarse conjuntamente fuera del centro y transportarse al mismo lugar."),
+
+Q("Una empresa propone compactar juntos los residuos tipo I, II, III y IV antes de su traslado. ¿Qué problema plantea esta propuesta?",
+["Los residuos tipo III y IV no deben compactarse junto con los tipos I y II ni entre sí sin respetar su separación.","La compactación conjunta es obligatoria para todos los grupos.","El tipo IV debe mezclarse con el tipo I para facilitar la incineración.","La separación solo importa dentro de las habitaciones, no durante el transporte."],0,
+"El tema establece que los residuos tipo III y IV no pueden compactarse juntos con los tipos I y II. Pueden viajar en el mismo camión únicamente si se mantienen claramente diferenciados o separados."),
+
+Q("Un camión transporta residuos tipo II y tipo III en compartimentos o recipientes claramente diferenciados. ¿Qué condición permite esta organización según el tema?",
+["Pueden utilizar el mismo camión si permanecen separados y claramente identificados.","Deben mezclarse antes de entrar en el camión.","Solo pueden transportarse juntos si se compactan en un único contenedor.","No pueden utilizar un vehículo común aunque estén separados."],0,
+"El cuadro del documento señala que los residuos tipo III y IV pueden transportarse en el mismo camión, pero en recipientes claramente diferenciados o separados y sin compactarlos juntos."),
+
+Q("Un centro debe trasladar residuos de tipo III para su tratamiento específico. ¿A dónde se dirigen según el tema?",
+["A un centro especial donde se realice su esterilización o incineración.","Directamente a un contenedor urbano de vidrio.","A un almacén de medicamentos caducados.","A una planta de reciclaje de papel y cartón sin tratamiento previo."],0,
+"Los residuos tipo III se trasladan a un centro especial para someterlos a tratamientos destinados a eliminar sus riesgos, como esterilización o incineración."),
+
+Q("Una empresa recibe residuos tipo III que han sido esterilizados correctamente. ¿Qué destino posterior contempla el documento?",
+["Pueden tratarse como residuos asimilables a urbanos.","Deben clasificarse automáticamente como tipo IV.","Deben volver a considerarse infecciosos y conservarse indefinidamente.","Deben mezclarse con residuos citotóxicos."],0,
+"El cuadro del tema señala que los residuos tipo III, una vez esterilizados, pueden tratarse como residuos asimilables a urbanos."),
+
+Q("Una trabajadora cierra una bolsa de residuos y la traslada arrastrándola por el suelo hasta el almacén. ¿Qué riesgo evita la norma que ha incumplido?",
+["La rotura de la bolsa, la dispersión de su contenido y la contaminación del recorrido.","La pérdida de temperatura de los residuos.","La mezcla accidental de los residuos líquidos con los gases.","La emisión de radiaciones ionizantes durante el traslado."],0,
+"Las bolsas no deben arrastrarse por el suelo y han de transportarse cerradas. Así se disminuyen los riesgos de rotura, derrame y contaminación de las zonas de tránsito."),
+
+Q("Una empresa recoge residuos sanitarios y los deja temporalmente en una sala de descanso del personal. ¿Qué principio debe corregirse?",
+["Los residuos solo pueden permanecer en el lugar de producción o en un almacén destinado a ello.","Cualquier sala puede utilizarse como almacén si permanece cerrada.","El almacenamiento intermedio puede hacerse en zonas de descanso.","Los residuos solo deben almacenarse cuando son tipo III o IV."],0,
+"El documento prohíbe depositar residuos en lugares distintos a su lugar de producción o a un almacén. Los almacenes deben reunir las condiciones específicas."),
+
+Q("Un centro quiere trasladar residuos al almacén final, pero han pasado 14 horas desde que se depositaron en el almacén intermedio. ¿Qué incumplimiento existe?",
+["Se ha superado el máximo de 12 horas para trasladarlos al almacén final.","Se ha superado el máximo de 72 horas, aplicable al almacén final.","No existe incumplimiento porque el límite es de 24 horas.","El plazo solo se aplica a residuos tipo I."],0,
+"El tema establece que, si se utiliza un almacén intermedio, los residuos deben trasladarse al almacén final en un máximo de 12 horas."),
+
+Q("El almacén final tiene buena iluminación y ventilación, pero no puede limpiarse ni desinfectarse de forma sencilla. ¿Qué exigencia falta?",
+["Debe permitir una limpieza y desinfección fáciles.","Debe tener una zona de descanso para el personal.","Debe disponer de acceso directo desde las habitaciones de los pacientes.","Debe permitir el almacenamiento de alimentos y medicamentos."],0,
+"El almacén final debe disponer de condiciones que permitan limpiarlo y desinfectarlo de forma sencilla, además de estar señalizado, delimitado y aislado."),
+
+Q("Un centro almacena residuos sanitarios junto a una caldera. ¿Qué regla general de ubicación está incumpliendo?",
+["Los recipientes deben mantenerse alejados de fuentes de calor.","Los residuos deben situarse junto a fuentes de calor para evitar humedad.","La cercanía a una caldera es necesaria para su compactación.","La ubicación solo importa en los residuos radiactivos."],0,
+"El tema indica que los recipientes deben colocarse en el suelo, sin entorpecer el paso y alejados de fuentes de calor."),
+
+Q("Un contenedor rígido se transporta con la tapa abierta para evitar que aumente la presión interna. ¿Qué debe hacerse?",
+["Mantener los contenedores con la tapa cerrada durante su transporte.","Mantener siempre la tapa abierta cuando el residuo sea sólido.","Cerrar el contenedor únicamente al llegar a la empresa externa.","Cubrirlo con una bolsa flexible sin utilizar el sistema de cierre."],0,
+"Los contenedores deben mantenerse con la tapa cerrada. Los recipientes y bolsas han de estar correctamente cerrados para evitar derrames y exposición."),
+
+Q("Una bolsa de residuos sanitarios se llena por encima de su capacidad y resulta difícil cerrarla. ¿Qué decisión habría evitado el problema?",
+["Retirarla antes de llenarla en exceso, sin compactar el contenido.","Presionar el material para que la bolsa pueda cerrarse.","Trasvasar una parte del contenido a otra bolsa ya llena.","Abrir la bolsa y distribuir los residuos en el pasillo."],0,
+"Las bolsas y recipientes no se deben llenar en exceso ni compactar. Deben utilizarse conforme a su capacidad y cerrarse correctamente antes del transporte."),
+
+Q("Un hospital utiliza un almacén intermedio para residuos de varios servicios. ¿Qué característica debe respetarse para evitar problemas de gestión?",
+["Los residuos deben mantenerse identificados y separados por su clasificación.","Los residuos deben mezclarse para reducir el número de recipientes.","Los residuos peligrosos deben quedar junto a los contenedores urbanos.","No es necesario conservar la identificación una vez que salen de la unidad."],0,
+"La gestión intracentro exige mantener la segregación y la identificación de los residuos desde el origen hasta el almacén y las operaciones posteriores."),
+
+Q("Un vehículo recoge residuos tipo I y II y los traslada al mismo destino municipal. ¿Qué tratamiento de transporte es coherente con la clasificación del documento?",
+["Puede realizarse conjuntamente, al tratarse de residuos municipales o asimilables a municipales.","Debe hacerse por rutas independientes y nunca en el mismo vehículo.","Solo pueden trasladarse conjuntamente si ambos grupos se esterilizan.","Deben transportarse exclusivamente en vehículos de incineración."],0,
+"El tema permite la gestión extracentro conjunta de los residuos tipo I y II, que se transportan al mismo lugar: los centros de disposición de residuos municipales."),
+
+Q("Una empresa transporta residuos tipo III y tipo IV en el mismo camión. ¿Qué condición debe cumplir la carga?",
+["Los residuos deben ir en recipientes diferenciados o separados y no compactarse juntos.","Se deben mezclar en una bolsa común para optimizar el espacio.","Los residuos tipo IV deben colocarse dentro de los recipientes de tipo III.","La carga puede ir sin identificar si el vehículo está autorizado."],0,
+"El texto señala que los tipos III y IV pueden transportarse en el mismo camión, pero en recipientes claramente diferenciados o separados. No deben compactarse juntos."),
+
+Q("Un contenedor de residuos llega al almacén final sin etiqueta identificativa, aunque el personal conoce de qué habitación procede. ¿Qué problema existe?",
+["La identificación debe mantenerse y no depender del conocimiento informal del personal.","La procedencia de la habitación sustituye legalmente cualquier etiqueta.","La identificación solo es necesaria en el almacén intermedio.","Los residuos de una habitación se consideran automáticamente tipo I."],0,
+"La correcta identificación es una parte esencial de la segregación, el almacenamiento y el transporte. El productor debe envasar y etiquetar los residuos peligrosos en el lugar de producción antes de la recogida."),
+
+Q("Un hospital organiza el recorrido de residuos por el mismo pasillo donde se distribuye material estéril. ¿Qué modificación es más adecuada?",
+["Diseñar itinerarios separados o planificados que respeten la circulación de zonas limpias y sucias.","Mantener el recorrido porque el transporte siempre debe seguir la ruta más corta.","Transportar los residuos abiertos para evitar el contacto con el material limpio.","Realizar la retirada durante la preparación de quirófanos."],0,
+"El tema recomienda establecer itinerarios de transporte que respeten las zonas limpias y sucias del centro. El horario también debe elegirse para reducir la presencia de público."),
+
+Q("Una empresa externa deposita residuos tipo III en un vehículo sin compartimentos ni recipientes diferenciados junto a residuos municipales. ¿Qué aspecto no respeta?",
+["La separación de residuos con riesgos diferentes durante el transporte.","La obligación de transportar todos los grupos en el mismo recipiente.","La posibilidad de tratar los residuos tipo I como peligrosos.","La necesidad de reducir el volumen de los residuos antes de clasificarlos."],0,
+"Los residuos tipo III y IV requieren transporte diferenciado respecto a los tipos I y II. Aunque pueden compartir un camión en determinadas condiciones, deben ir en recipientes claramente separados."),
+
+Q("Un centro quiere establecer el horario de recogida de los residuos para reducir la exposición de pacientes y visitantes. ¿Qué opción debe priorizar?",
+["Un horario de baja afluencia de público.","El horario de visitas de familiares.","Los momentos de mayor actividad en las salas de espera.","El horario de distribución de comidas."],0,
+"El tema recomienda realizar el transporte en los horarios en que haya menor presencia de público en el centro sanitario."),
+
+Q("Una empresa de limpieza retira residuos correctamente segregados y los deposita en un almacén final con acceso directo desde zonas públicas. ¿Qué característica debería incorporarse?",
+["El almacén debe estar delimitado, aislado y debidamente señalizado.","El almacén debe permanecer abierto para facilitar el acceso de visitas.","El almacén debe compartir espacio con las salas de espera.","El almacén debe estar situado en la zona de preparación de alimentos."],0,
+"El almacén final debe estar debidamente señalizado, delimitado y aislado, con buena iluminación, ventilación y capacidad para limpiarse y desinfectarse."),
+
+Q("Un almacén final tiene residuos que llevan depositados 60 horas. ¿Qué valoración temporal corresponde?",
+["Todavía no se ha superado el máximo de 72 horas, pero debe organizarse su retirada dentro del plazo.","Se ha superado el máximo de 12 horas y debe retirarse de inmediato, porque ese plazo rige el almacén final.","El plazo máximo de almacenamiento es de 24 horas.","El tiempo de permanencia no tiene límite si el almacén está ventilado."],0,
+"El tema establece un máximo de 72 horas para el depósito en el almacén final. Las 12 horas corresponden al traslado desde un almacén intermedio al final."),
+
+Q("Un hospital pretende aumentar la frecuencia de recogida y retirar contenedores aún casi vacíos. ¿Qué aspecto de la gestión puede verse afectado?",
+["La sostenibilidad económica, porque el tema recomienda un volumen mínimo antes de retirar los contenedores.","La seguridad, porque todos los contenedores deben rebosar antes de retirarse.","La clasificación, porque los residuos pierden su grupo al ser recogidos pronto.","La esterilidad, porque los contenedores se vuelven infecciosos si están vacíos."],0,
+"El documento recomienda que los contenedores alcancen un volumen mínimo antes de retirarse para que la gestión resulte sostenible y rentable, sin sobrepasar nunca la capacidad máxima."),
+
+Q("Un centro necesita almacenar temporalmente residuos de diferentes grupos en un mismo almacén. ¿Qué principio debe mantenerse?",
+["La separación e identificación de cada tipo de residuo, sin mezclarlos.","La mezcla de todos los grupos siempre que el almacén tenga ventilación.","La compactación conjunta de residuos peligrosos y urbanos.","La retirada de las etiquetas para simplificar la organización."],0,
+"La clasificación debe mantenerse en las operaciones de recogida, almacenamiento y transporte. Cada residuo debe conservar su segregación para recibir el destino adecuado.")
+],
+
+/* =========================================================
+   BLOQUE 5. TRATAMIENTO Y ELIMINACIÓN
+   30 PREGUNTAS
+========================================================= */
+tratamiento:[
+
+Q("Un centro utiliza una máquina para triturar residuos y reducir el espacio que ocupan. ¿Qué limitación tienen los métodos mecánicos según el tema?",
+["Reducen mucho el volumen, pero no eliminan por sí mismos la capacidad de infección.","Destruyen siempre todos los microorganismos mediante calor.","Neutralizan químicamente las sustancias sin cambiar el volumen.","Utilizan enzimas para destruir los componentes orgánicos."],0,
+"Los métodos mecánicos, como trituración o compactación, reducen el volumen de los residuos, pero no eliminan su capacidad de infección. Por eso no sustituyen al tratamiento que elimina el riesgo biológico."),
+
+Q("Un equipo propone compactar residuos infecciosos y enviarlos directamente a un vertedero porque han reducido su volumen. ¿Qué error técnico comete?",
+["Confunde la reducción del volumen con la eliminación de la capacidad infecciosa.","Considera que la compactación es un método térmico.","Interpreta correctamente que todo residuo triturado deja de ser peligroso.","Aplica un tratamiento químico antes de compactar."],0,
+"La trituración y la compactación son métodos mecánicos: reducen el volumen, pero no eliminan la capacidad de infección. Los residuos tipo III necesitan un tratamiento que elimine el riesgo."),
+
+Q("Un centro trata residuos infecciosos utilizando vapor y elevando la temperatura para destruir microorganismos. ¿Qué tipo de método está aplicando?",
+["Método térmico.","Método mecánico.","Método químico.","Método biológico."],0,
+"Los métodos térmicos utilizan calor para eliminar la infecciosidad. El tema incluye como ejemplos la incineración, el autoclave, las microondas, la gasificación y la pirólisis."),
+
+Q("Un hospital utiliza cloro o ácido peracético para neutralizar químicamente un residuo. ¿Qué tipo de método está aplicando?",
+["Método químico.","Método mecánico.","Método físico por radiación.","Método biológico por enzimas."],0,
+"Los métodos químicos neutralizan los residuos mediante sustancias como cloro o ácido peracético. Según el tema, no reducen el volumen de los residuos."),
+
+Q("Un centro estudia utilizar radiaciones de electrones o cobalto 60 para tratar residuos. ¿En qué categoría se incluyen estos procedimientos?",
+["Métodos físicos.","Métodos mecánicos.","Métodos químicos.","Métodos biológicos."],0,
+"Los métodos físicos utilizan radiaciones. El documento cita el cobalto 60 y las radiaciones de electrones como ejemplos."),
+
+Q("Una instalación utiliza enzimas para destruir los componentes orgánicos de determinados residuos. ¿Qué método está empleando?",
+["Método biológico.","Método térmico.","Método mecánico.","Método físico por radiación."],0,
+"Los métodos biológicos utilizan enzimas que destruyen los componentes orgánicos de los residuos."),
+
+Q("Un responsable compara tratamientos y observa que un método neutraliza químicamente el residuo, pero no reduce su volumen. ¿Qué característica coincide con el libro?",
+["Es propia de los métodos químicos.","Es propia de los métodos mecánicos.","Es la característica de la incineración.","Es la característica de la trituración y compactación."],0,
+"El tema indica que los métodos químicos neutralizan químicamente los residuos, pero no reducen su volumen. Los métodos mecánicos, por el contrario, reducen el volumen sin eliminar la infecciosidad."),
+
+Q("Un hospital debe decidir qué hacer con residuos tipo I y tipo II. ¿Qué destino general recoge el tema?",
+["Eliminación en vertederos, como los residuos urbanos.","Incineración obligatoria a más de 900 °C.","Esterilización en autoclave en todos los casos.","Gestión exclusiva por ENRESA."],0,
+"El cuadro del tema señala que los residuos tipo I y II se eliminan en vertederos como los residuos urbanos y no presentan riesgo fuera del centro sanitario."),
+
+Q("Un centro debe tratar residuos tipo III potencialmente infecciosos. ¿Qué opciones generales contempla el documento?",
+["Incineración o esterilización en autoclave, seguida de trituración y compactación cuando corresponda.","Reciclaje directo sin tratamiento previo.","Vertido a la red de saneamiento junto con aguas residuales.","Almacenamiento indefinido sin tratamiento."],0,
+"Los residuos tipo III deben recibir tratamientos destinados a eliminar los riesgos que producen. El tema cita incineración o esterilización en autoclave, con posterior trituración y compactación en el caso descrito."),
+
+Q("Un residuo tipo III ha sido correctamente esterilizado en autoclave y triturado. ¿Qué tratamiento posterior puede recibir?",
+["Puede tratarse como residuo asimilable a urbano.","Debe clasificarse como residuo radiactivo.","Debe convertirse automáticamente en residuo citotóxico.","Debe conservarse siempre como residuo infeccioso sin posibilidad de salida."],0,
+"El cuadro de tratamientos del tema indica que los residuos tipo III, una vez esterilizados, pueden tratarse como residuos asimilables a urbanos."),
+
+Q("Un hospital debe eliminar residuos tipo IV, entre ellos residuos químicos y citotóxicos. ¿Qué tratamiento general recoge el cuadro del tema?",
+["Incineración; los citotóxicos pueden neutralizarse químicamente y los radiactivos requieren tratamiento especial.","Eliminación directa en vertedero municipal sin tratamiento.","Esterilización en autoclave como tratamiento universal.","Trituración mecánica seguida de reciclaje convencional."],0,
+"El cuadro del documento indica para el tipo IV la incineración como tratamiento general, la posibilidad de neutralización química de residuos citotóxicos y un tratamiento especial para los radiactivos."),
+
+Q("Un residuo radiactivo procede de una instalación sanitaria. ¿Qué entidad señala el tema como responsable de su gestión específica?",
+["ENRESA.","El servicio de limpieza del hospital.","La Comisión de Residuos del centro, de forma exclusiva.","La empresa municipal de recogida de papel."],0,
+"El documento indica que los residuos radiactivos requieren una gestión especial cuya competencia corresponde a la Empresa Nacional de Residuos Radiactivos, ENRESA."),
+
+Q("Un hospital necesita acondicionar residuos radiactivos de baja y media actividad. ¿Qué instalación española cita el tema?",
+["El centro de almacenamiento «El Cabril», en Córdoba.","Un vertedero municipal de residuos urbanos.","El almacén intermedio del hospital.","Una planta convencional de reciclaje de envases."],0,
+"El documento identifica el centro de almacenamiento de residuos de baja y media actividad «El Cabril», en Córdoba, como instalación española para estos residuos."),
+
+Q("Una instalación quiere esterilizar residuos infecciosos mediante autoclave. ¿Qué principio físico utiliza este equipo?",
+["La acción del calor, mediante vapor a presión y condiciones controladas.","La acción de enzimas que destruyen materia orgánica.","La combustión completa a temperaturas superiores a 900 °C.","La neutralización con disolventes halogenados."],0,
+"La esterilización por autoclave se basa en aumentar la temperatura mediante vapor a presión, con unas condiciones definidas de tiempo y presión que permiten destruir microorganismos."),
+
+Q("Un responsable comprueba los parámetros del autoclave utilizado para tratar residuos sanitarios. ¿Qué condiciones recoge el tema?",
+["Aproximadamente 135 °C, 2,2 atmósferas y 15-20 minutos.","Aproximadamente 80 °C, presión atmosférica y 5 minutos.","Aproximadamente 900 °C, 2,2 atmósferas y 24 horas.","Aproximadamente 37 °C, 1 atmósfera y 60 minutos."],0,
+"El documento describe el autoclave con una temperatura de unos 135 °C, una presión aproximada de 2,2 atmósferas y un tiempo de 15-20 minutos."),
+
+Q("Al finalizar la esterilización en autoclave, una instalación deja los residuos en su forma original y los envía directamente al circuito municipal sin acondicionamiento. ¿Qué paso falta según el tema?",
+["Triturarlos y compactarlos una vez terminado el proceso de esterilización.","Añadirles disolventes halogenados antes de almacenarlos.","Volver a someterlos a combustión a más de 900 °C.","Mezclarlos con residuos químicos líquidos."],0,
+"Después de la esterilización en autoclave, los residuos se trituran y compactan. Una vez tratados de esta forma, pueden eliminarse como residuos municipales."),
+
+Q("Un hospital dispone de un autoclave que incorpora una trituradora dentro de un contenedor sellado. ¿Qué ventaja destaca el recuadro del tema?",
+["Combina métodos mecánicos y térmicos y resulta útil para eliminar residuos infecciosos.","Combina métodos químicos y radiactivos para tratar citotóxicos.","Sustituye la esterilización por simple compactación.","Permite tratar residuos radiactivos sin intervención especializada."],0,
+"El tema describe un autoclave con trituradora integrada que combina métodos mecánicos y térmicos en un contenedor sellado. Por ello resulta útil para la eliminación de residuos infecciosos."),
+
+Q("Un residuo sanitario se trata mediante combustión a temperaturas muy elevadas. ¿Qué método se está aplicando?",
+["Incineración.","Autoclave.","Desinfección química.","Tratamiento enzimático."],0,
+"La incineración destruye los residuos mediante combustión a elevadas temperaturas, en hornos adecuados."),
+
+Q("Una planta incineradora debe alcanzar temperaturas elevadas para destruir los residuos. ¿Qué temperatura mínima aproximada recoge el tema?",
+["900 °C o más.","135 °C.","80 °C.","37 °C."],0,
+"El documento describe la incineración como un método de destrucción por combustión a temperaturas de 900 °C o más."),
+
+Q("Una planta incineradora tiene un horno, pero no dispone de un sistema para tratar los gases resultantes de la combustión. ¿Qué elemento fundamental falta?",
+["Un termorreactor para someter los gases a una combustión posterior y eliminar elementos peligrosos.","Un recipiente primario estanco para conservar las muestras.","Un sistema de trituración previo a la recogida selectiva.","Un dispositivo de extracción de sangre al vacío."],0,
+"Las instalaciones de incineración incluyen un horno y un termorreactor donde los gases resultantes se someten a una combustión posterior para eliminar elementos peligrosos."),
+
+Q("Una instalación incineradora necesita recuperar parte del calor generado y enfriar los gases antes de su depuración. ¿Qué componente cumple esa función según el tema?",
+["La caldera para la recuperación del calor.","El termorreactor de combustión posterior.","El sistema de control de emisiones de la chimenea.","El contenedor de recepción de residuos."],0,
+"El documento describe una caldera para la recuperación del calor, donde se enfrían los gases resultantes del proceso de incineración."),
+
+Q("Una planta incineradora ha enfriado los gases, pero todavía pueden contener sustancias peligrosas. ¿Qué sistema debe intervenir antes de emitirlos a la atmósfera?",
+["La instalación de depuración de gases.","El almacén intermedio de residuos.","La trituradora de residuos.","El contenedor de residuos tipo II."],0,
+"Las instalaciones de incineración incluyen un sistema de depuración que limpia los gases antes de verterlos a la atmósfera."),
+
+Q("Una instalación dispone de una chimenea con equipos que miden los elementos tóxicos presentes en los gases emitidos. ¿Qué finalidad tiene este control?",
+["Impedir la emisión cuando se superan determinados valores establecidos.","Aumentar la temperatura del horno cuando los residuos están húmedos.","Identificar el grupo de residuos por el color de las cenizas.","Reducir el volumen de los residuos antes de introducirlos en el horno."],0,
+"El control de emisiones se instala en la chimenea y mide los elementos tóxicos presentes en los gases. El sistema impide la emisión si se superan determinados valores."),
+
+Q("Un responsable compara incineración y autoclave y destaca que la incineración transforma los residuos, mientras que deja cenizas y gases que necesitan destino o control. ¿Qué inconveniente del método está señalando?",
+["La incineración genera materiales resultantes que siguen siendo inaprovechables y pueden causar mayor impacto ambiental.","La incineración no produce gases ni cenizas y elimina cualquier impacto ambiental.","La incineración permite recuperar siempre todos los materiales originales.","La incineración conserva intactos los residuos y únicamente reduce su temperatura."],0,
+"El tema señala como inconvenientes que la incineración no elimina completamente los residuos, sino que los transforma; las cenizas y gases deben gestionarse y el impacto ambiental puede ser mayor que con el autoclave."),
+
+Q("Un hospital pretende aprovechar energía de residuos y recuperar ciertos componentes químicos cuando sea viable y seguro. ¿Qué enfoque de gestión está aplicando?",
+["Valorización de residuos.","Eliminación sin recuperación.","Segregación de residuos infecciosos exclusivamente.","Compactación mecánica de todos los residuos."],0,
+"La valorización permite aprovechar recursos contenidos en los residuos sin perjudicar a las personas ni al medio ambiente. El tema cita el uso energético y la recuperación de disolventes, metales, ácidos o bases."),
+
+Q("Un centro utiliza hipoclorito o ácido peracético para neutralizar determinados residuos. ¿Qué limitación distingue este procedimiento de la trituración?",
+["El método químico neutraliza químicamente, pero no reduce el volumen del residuo.","El método químico reduce mucho el volumen, pero mantiene intacta la infecciosidad.","El método químico utiliza siempre temperaturas superiores a 900 °C.","El método químico destruye componentes orgánicos mediante enzimas."],0,
+"Los métodos químicos neutralizan los residuos mediante sustancias químicas, pero no reducen el volumen. La trituración es mecánica y reduce volumen, aunque no elimina por sí misma la capacidad infecciosa."),
+
+Q("Un residuo sanitario se trata con radiaciones ionizantes en una instalación específica. ¿Qué categoría de tratamiento está utilizando?",
+["Método físico.","Método químico.","Método mecánico.","Método biológico."],0,
+"Los métodos físicos emplean radiaciones, como cobalto 60 o radiaciones de electrones. Se distinguen de los métodos térmicos, mecánicos, químicos y biológicos."),
+
+Q("Una empresa propone aplicar el mismo método a residuos tipo I, tipo III y tipo IV sin considerar su clasificación. ¿Qué principio del tema contradice?",
+["La clasificación del residuo es decisiva para determinar el tratamiento adecuado.","Todos los residuos sanitarios deben recibir el mismo tratamiento.","El tratamiento debe elegirse solo en función del peso del residuo.","La clasificación deja de tener importancia una vez cerrado el recipiente."],0,
+"El documento señala que la clasificación de los residuos es decisiva para aplicarles un tratamiento adecuado. Las normas generales distinguen entre los tipos I y II, el tipo III y el tipo IV."),
+
+Q("Un centro desea eliminar residuos tipo III y valora entre autoclave e incineración. ¿Qué finalidad común deben cumplir ambos métodos?",
+["Eliminar o reducir el riesgo que producen los residuos específicos de riesgo.","Aumentar el volumen de los residuos antes de su transporte.","Convertirlos en residuos químicos líquidos.","Facilitar su reutilización directa sin tratamiento."],0,
+"Los residuos tipo III requieren tratamientos dirigidos a eliminar los riesgos que producen. El tema recoge la incineración y la esterilización en autoclave como métodos utilizados para este fin."),
+
+Q("Un hospital genera residuos citotóxicos y estudia la neutralización química. ¿Qué condición debe tener presente?",
+["El tema contempla que los residuos citotóxicos pueden neutralizarse químicamente, además de su gestión mediante recipientes y tratamientos específicos.","Los residuos citotóxicos pueden mezclarse con residuos tipo I una vez diluidos.","Los residuos citotóxicos se eliminan siempre en vertederos municipales.","Los restos de citotóxicos dejan de ser peligrosos al secarse."],0,
+"El esquema de tratamiento del documento contempla la incineración para el tipo IV y señala que los residuos citotóxicos pueden neutralizarse químicamente. Su recogida y manipulación requieren recipientes homologados."),
+
+Q("Una instalación recibe residuos radiactivos y propone introducirlos en el autoclave junto con residuos infecciosos. ¿Por qué no es correcto?",
+["Los residuos radiactivos requieren un tratamiento especial y su gestión corresponde a ENRESA.","El autoclave elimina todas las radiaciones ionizantes a 135 °C.","Los residuos radiactivos se consideran tipo II si están cerrados.","La esterilización convierte siempre cualquier residuo radiactivo en municipal."],0,
+"Los residuos radiactivos no admiten un tratamiento convencional. El tema señala que su gestión corresponde a ENRESA y que requieren procesos especiales de acondicionamiento y almacenamiento."),
+
+Q("Una instalación trata residuos radiactivos para facilitar su almacenamiento seguro. ¿Qué objetivos de acondicionamiento recoge el tema?",
+["Reducir el volumen, eliminar radionúclidos y modificar la composición para obtener un producto final aceptable.","Aumentar el volumen, mezclar los residuos y favorecer su dispersión.","Incinerar todos los radionúclidos sin controlar las emisiones.","Convertir los residuos en líquidos para transportarlos por el desagüe."],0,
+"El documento explica que el tratamiento de residuos radiactivos modifica características para optimizar seguridad y economía: reduce volumen, elimina radionúclidos y cambia la composición para obtener un producto final aceptable para el almacenamiento."),
+
+Q("Una planta incineradora dispone de horno, termorreactor, caldera y depuración, pero no de un sistema de vigilancia en la chimenea. ¿Qué función de seguridad queda sin cubrir?",
+["Medir los elementos tóxicos de los gases y detener la emisión si se superan los valores permitidos.","Recuperar el calor generado durante la combustión.","Enfriar los gases después de su paso por el horno.","Realizar la combustión posterior de los gases."],0,
+"El sistema de control de emisiones se instala en la chimenea y mide los elementos tóxicos existentes en los gases. Su función es impedir la emisión cuando se superan determinados valores."),
+
+Q("Un equipo propone utilizar trituración y compactación como única medida para tratar residuos infecciosos porque facilita el transporte. ¿Qué explicación debe darle el responsable?",
+["La reducción del volumen no elimina la capacidad infecciosa; debe aplicarse un tratamiento que elimine el riesgo.","La trituración garantiza la esterilización por fricción en todos los residuos.","La compactación neutraliza químicamente los microorganismos.","El tamaño final del residuo determina por sí solo que sea inocuo."],0,
+"Los métodos mecánicos reducen mucho el volumen, pero no eliminan la capacidad de infección. Para residuos tipo III deben emplearse tratamientos que eliminen el riesgo, como la esterilización o la incineración.")
+]
+
+};
+
+/* =========================================================
+   ELEMENTOS Y FUNCIONAMIENTO DE LA APLICACIÓN
+========================================================= */
+
+const home=document.getElementById("home");
+const quiz=document.getElementById("quiz");
+const results=document.getElementById("results");
+const topicsContainer=document.getElementById("topics");
+const countSelect=document.getElementById("questionCount");
+const availableInfo=document.getElementById("availableInfo");
+const startBtn=document.getElementById("startBtn");
+const homeBtn=document.getElementById("homeBtn");
+const resultHomeBtn=document.getElementById("resultHomeBtn");
+const questionText=document.getElementById("questionText");
+const optionsContainer=document.getElementById("options");
+const feedback=document.getElementById("feedback");
+const checkBtn=document.getElementById("checkBtn");
+const nextBtn=document.getElementById("nextBtn");
+
+let selectedTopic="all";
+let questions=[];
+let currentIndex=0;
+let correct=0;
+let wrong=0;
+let answered=false;
+let selectedOption=null;
+let questionCount=0;
+
+function availableQuestions(topicId){
+  if(topicId==="all"){
+    return Object.values(bank).reduce((total,items)=>total+items.length,0);
+  }
+  return bank[topicId] ? bank[topicId].length : 0;
+}
+
+function topicName(topicId){
+  if(topicId==="all") return "Tema completo";
+  const topic=topics.find(t=>t.id===topicId);
+  return topic ? topic.name : "Tema";
+}
+
+function renderTopics(){
+  topicsContainer.innerHTML="";
+
+  const allButton=document.createElement("button");
+  allButton.type="button";
+  allButton.className="topic-card"+(selectedTopic==="all"?" selected":"");
+
+  const allNumber=document.createElement("span");
+  allNumber.className="topic-number";
+  allNumber.textContent="★";
+
+  const allTitle=document.createElement("strong");
+  allTitle.textContent="Tema completo";
+
+  const allDescription=document.createElement("span");
+  allDescription.textContent="Practica las 150 preguntas de los cinco bloques.";
+
+  allButton.append(allNumber,allTitle,allDescription);
+  allButton.addEventListener("click",()=>{
+    selectedTopic="all";
+    renderTopics();
+    updateCountOptions(true);
+  });
+  topicsContainer.appendChild(allButton);
+
+  topics.forEach((topic,index)=>{
+    const button=document.createElement("button");
+    button.type="button";
+    button.className="topic-card"+(selectedTopic===topic.id?" selected":"");
+
+    const number=document.createElement("span");
+    number.className="topic-number";
+    number.textContent=String(index+1);
+
+    const title=document.createElement("strong");
+    title.textContent=topic.name;
+
+    const description=document.createElement("span");
+    description.textContent=topic.description;
+
+    button.append(number,title,description);
+    button.addEventListener("click",()=>{
+      selectedTopic=topic.id;
+      renderTopics();
+      updateCountOptions(true);
+    });
+    topicsContainer.appendChild(button);
+  });
+}
+
+function updateCountOptions(selectAll=false){
+  const max=availableQuestions(selectedTopic);
+  const previous=Number(countSelect.value);
+  const standard=[5,10,15,20,25,30,40,50,60,75,100,125,150];
+
+  const possible=standard.filter(n=>n<max);
+  if(max>0) possible.push(max);
+
+  const unique=[...new Set(possible)].sort((a,b)=>a-b);
+  countSelect.innerHTML="";
+
+  unique.forEach(n=>{
+    const option=document.createElement("option");
+    option.value=String(n);
+    option.textContent=n===max?`Todas las preguntas (${max})`:`${n} preguntas`;
+    countSelect.appendChild(option);
+  });
+
+  if(selectAll||!unique.includes(previous)){
+    countSelect.value=String(max);
+  }else{
+    countSelect.value=String(previous);
+  }
+
+  availableInfo.textContent=`Preguntas disponibles en esta selección: ${max}. Puedes elegir una cantidad concreta o realizar el bloque completo.`;
+}
+
+function shuffle(array){
+  const copy=[...array];
+  for(let i=copy.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [copy[i],copy[j]]=[copy[j],copy[i]];
+  }
+  return copy;
+}
+
+function startQuiz(){
+  const pool=selectedTopic==="all"
+    ?Object.values(bank).flat()
+    :[...bank[selectedTopic]];
+
+  const requested=Number(countSelect.value);
+  if(!pool.length||!requested) return;
+
+  questions=shuffle(pool).slice(0,Math.min(requested,pool.length));
+  questionCount=questions.length;
+  currentIndex=0;
+  correct=0;
+  wrong=0;
+  answered=false;
+  selectedOption=null;
+
+  home.classList.add("hidden");
+  results.classList.add("hidden");
+  quiz.classList.remove("hidden");
+
+  document.getElementById("topicPill").textContent=topicName(selectedTopic);
+  document.getElementById("scorePill").textContent="Aciertos: 0";
+
+  renderQuestion();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function renderQuestion(){
+  const item=questions[currentIndex];
+  answered=false;
+  selectedOption=null;
+
+  questionText.innerHTML="";
+  const number=document.createElement("span");
+  number.className="question-number";
+  number.textContent=`Pregunta ${currentIndex+1}. `;
+  questionText.append(number,document.createTextNode(item.question));
+
+  optionsContainer.innerHTML="";
+
+  item.options.forEach((option,index)=>{
+    const button=document.createElement("button");
+    button.type="button";
+    button.className="option";
+    button.setAttribute("aria-pressed","false");
+
+    const letter=document.createElement("span");
+    letter.className="letter";
+    letter.textContent=["A","B","C","D"][index];
+
+    const text=document.createElement("span");
+    text.textContent=option;
+
+    button.append(letter,text);
+    button.addEventListener("click",()=>{
+      if(answered) return;
+
+      selectedOption=index;
+      document.querySelectorAll(".option").forEach((element,i)=>{
+        element.classList.toggle("selected",i===index);
+        element.setAttribute("aria-pressed",String(i===index));
+      });
+
+      checkBtn.disabled=false;
+    });
+    optionsContainer.appendChild(button);
+  });
+
+  feedback.className="feedback";
+  feedback.textContent="";
+
+  checkBtn.classList.remove("hidden");
+  checkBtn.disabled=true;
+  nextBtn.classList.add("hidden");
+  nextBtn.textContent=currentIndex===questionCount-1
+    ?"Ver resultados →"
+    :"Siguiente pregunta →";
+
+  const percent=Math.round((currentIndex/questionCount)*100);
+  document.getElementById("progressText").textContent=`Pregunta ${currentIndex+1} de ${questionCount}`;
+  document.getElementById("progressPercent").textContent=`${percent} %`;
+  document.getElementById("progressFill").style.width=`${percent}%`;
+}
+
+function checkAnswer(){
+  if(answered||selectedOption===null) return;
+
+  answered=true;
+  const item=questions[currentIndex];
+  const correctIndex=item.correct;
+  const isCorrect=selectedOption===correctIndex;
+
+  if(isCorrect) correct++;
+  else wrong++;
+
+  document.getElementById("scorePill").textContent=`Aciertos: ${correct}`;
+
+  const optionButtons=[...optionsContainer.querySelectorAll(".option")];
+  optionButtons.forEach((button,index)=>{
+    button.disabled=true;
+    if(index===correctIndex) button.classList.add("correct");
+    if(index===selectedOption&&!isCorrect) button.classList.add("incorrect");
+  });
+
+  feedback.className=`feedback show ${isCorrect?"good":"bad"}`;
+
+  const heading=document.createElement("strong");
+  heading.textContent=isCorrect
+    ?"¡Respuesta correcta!"
+    :`Respuesta incorrecta. La opción correcta es ${["A","B","C","D"][correctIndex]}.`;
+
+  const explanation=document.createElement("p");
+  explanation.textContent=item.explanation;
+
+  feedback.append(heading,explanation);
+  checkBtn.classList.add("hidden");
+  nextBtn.classList.remove("hidden");
+}
+
+function nextQuestion(){
+  if(!answered) return;
+
+  currentIndex++;
+
+  if(currentIndex<questionCount){
+    renderQuestion();
+    window.scrollTo({top:0,behavior:"smooth"});
+  }else{
+    showResults();
+  }
+}
+
+function showResults(){
+  quiz.classList.add("hidden");
+  results.classList.remove("hidden");
+
+  const percentage=Math.round((correct/questionCount)*100);
+
+  document.getElementById("resultTopic").textContent=topicName(selectedTopic);
+  document.getElementById("finalScore").textContent=`${percentage} %`;
+  document.getElementById("correctCount").textContent=String(correct);
+  document.getElementById("wrongCount").textContent=String(wrong);
+  document.getElementById("totalCount").textContent=String(questionCount);
+
+  let message;
+
+  if(percentage>=90){
+    message="Excelente resultado. Has demostrado un dominio muy sólido de la clasificación, segregación y gestión de los residuos sanitarios, así como de sus tratamientos y riesgos.";
+  }else if(percentage>=75){
+    message="Muy buen trabajo. Comprendes la mayoría de los criterios de gestión. Repasa especialmente las diferencias entre los grupos de residuos y las condiciones específicas de almacenamiento y tratamiento.";
+  }else if(percentage>=60){
+    message="Resultado aceptable, aunque puedes mejorar. Te recomendamos revisar los apartados con más dudas y repetir el cuestionario para consolidar la clasificación y los procedimientos de seguridad.";
+  }else{
+    message="Conviene repasar el tema con calma y volver a practicar. Presta especial atención a los grupos I, II, III y IV, los recipientes de recogida, los tiempos de almacenamiento y los métodos de tratamiento.";
+  }
+
+  document.getElementById("resultMessage").textContent=message;
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function goHome(){
+  quiz.classList.add("hidden");
+  results.classList.add("hidden");
+  home.classList.remove("hidden");
+
+  selectedTopic="all";
+  renderTopics();
+  updateCountOptions(true);
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+startBtn.addEventListener("click",startQuiz);
+checkBtn.addEventListener("click",checkAnswer);
+nextBtn.addEventListener("click",nextQuestion);
+homeBtn.addEventListener("click",goHome);
+resultHomeBtn.addEventListener("click",goHome);
+
+/* Inicialización */
+renderTopics();
+updateCountOptions(true);
+
+/* =========================================================
+   VALIDACIÓN AUTOMÁTICA DEL BANCO DE PREGUNTAS
+========================================================= */
+const expectedCounts={
+  fundamentos:30,
+  clasificacion:30,
+  gestion:30,
+  transporte:30,
+  tratamiento:30
+};
+
+const integrityErrors=[];
+let totalQuestions=0;
+
+Object.entries(bank).forEach(([topicId,items])=>{
+  totalQuestions+=items.length;
+
+  if(items.length!==expectedCounts[topicId]){
+    integrityErrors.push(
+      `${topicId}: se esperaban ${expectedCounts[topicId]} preguntas y hay ${items.length}.`
+    );
+  }
+
+  items.forEach((item,index)=>{
+    if(
+      !item||
+      typeof item.question!=="string"||
+      !Array.isArray(item.options)||
+      item.options.length!==4||
+      !Number.isInteger(item.correct)||
+      item.correct<0||
+      item.correct>3||
+      typeof item.explanation!=="string"
+    ){
+      integrityErrors.push(
+        `Estructura incorrecta en ${topicId}, pregunta ${index+1}.`
+      );
+    }
+
+    if(item&&Array.isArray(item.options)&&new Set(item.options).size!==4){
+      integrityErrors.push(
+        `Opciones repetidas en ${topicId}, pregunta ${index+1}.`
+      );
+    }
+  });
+});
+
+if(totalQuestions!==150){
+  integrityErrors.push(`El banco contiene ${totalQuestions} preguntas en lugar de 150.`);
+}
+
+if(integrityErrors.length){
+  console.error("Errores de integridad del cuestionario:",integrityErrors);
+  availableInfo.textContent+=" Atención: se ha detectado una discrepancia en la comprobación del banco.";
+}else{
+  console.info("Banco validado: 150 preguntas, 5 bloques y 4 opciones por pregunta.");
+}
+</script>
+</body>
+</html>
